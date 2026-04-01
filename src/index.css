@@ -1,0 +1,26 @@
+@import "tailwindcss";
+/* ```
+
+---
+
+## 3. Estrutura de pastas recomendada
+```
+meu-portfolio/
+├── public/
+│   └── favicon.ico
+├── src/
+│   ├── assets/          # imagens, fontes
+│   ├── components/      # componentes reutilizáveis
+│   │   ├── Header.tsx
+│   │   ├── Hero.tsx
+│   │   ├── About.tsx
+│   │   ├── Projects.tsx
+│   │   └── Footer.tsx
+│   ├── types/           # tipos TypeScript globais
+│   │   └── index.ts
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+├── index.html
+├── tsconfig.json
+└── vite.config.ts */
