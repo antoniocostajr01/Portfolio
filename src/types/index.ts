@@ -11,6 +11,7 @@ export interface ProjectScreenshot {
 export interface ProjectMember {
   name: string
   role: string
+  linkedinUrl?: string
 }
 
 export interface ProjectLinks {
@@ -29,8 +30,10 @@ export interface Project {
   slug: string
   title: string
   period: string
-  iconLabel: string
-  accent: string
+  screenshotOrientation?: 'portrait' | 'landscape'
+  iconSrc?: string
+  iconLabel?: string
+  accent?: string
   technologies: string[]
   links: ProjectLinks
   members: ProjectMember[]

@@ -31,11 +31,21 @@ function Projects({ projects, copy, language, onOpenProject }: ProjectsProps) {
             style={{ animationDelay: `${index * 110}ms` }}
             type="button"
           >
-            <div
-              className={`flex h-14 w-14 items-center justify-center rounded-[1.1rem] bg-gradient-to-br ${project.accent} text-xl font-semibold text-slate-900 shadow-[inset_0_1px_1px_rgba(255,255,255,0.7),0_12px_24px_rgba(0,0,0,0.16)]`}
-            >
-              {project.iconLabel}
-            </div>
+            {project.iconSrc ? (
+              <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-[1.1rem] bg-transparent p-0">
+                <img
+                  alt={`${project.title} icon`}
+                  className="h-full w-full rounded-[1.1rem] object-cover"
+                  src={project.iconSrc}
+                />
+              </div>
+            ) : (
+              <div
+                className={`flex h-14 w-14 items-center justify-center rounded-[1.1rem] bg-gradient-to-br ${project.accent ?? 'from-slate-200 to-slate-100'} text-xl font-semibold text-slate-900 shadow-[inset_0_1px_1px_rgba(255,255,255,0.7),0_12px_24px_rgba(0,0,0,0.16)]`}
+              >
+                {project.iconLabel ?? project.title.charAt(0)}
+              </div>
+            )}
 
             <div className="min-w-0">
               <h3 className="text-xl font-semibold tracking-[-0.03em] text-[var(--color-heading)]">

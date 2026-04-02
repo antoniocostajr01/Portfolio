@@ -1,36 +1,75 @@
 # Adding New Projects
 
-This file explains how to manually add future projects to the portfolio.
+This file explains how to manually add future projects to the portfolio using the same structure you are using now: one folder per project inside `src/assets/`.
 
-## Where project data lives
-
-All project content is stored in:
+## Files you will use
 
 - `src/data/projects.ts`
+- `src/assets/your-project-name/`
 
-Each project object controls:
+Each project entry controls:
 
-- the project row shown on the home page
-- the clickable detail page route
+- the project row on the home page
+- the clickable detail page
+- the project icon
+- screenshots
+- technologies
+- GitHub and App Store links
 - team members
 - your contribution
-- GitHub and App Store links
-- screenshots
 
-## 1. Duplicate an existing project entry
+## 1. Create the project assets folder
 
-Open `src/data/projects.ts` and copy one existing project object inside the `projects` array.
+Inside `src/assets/`, create a folder for the project.
 
-Update these fields:
+Example:
+
+```text
+src/assets/lavanda/
+```
+
+Inside that folder, place:
+
+- the app icon
+- the screenshots you want to show on the detail page
+
+Example:
+
+```text
+src/assets/lavanda/lavandaIcon.png
+src/assets/lavanda/screenshoot1.png
+src/assets/lavanda/screenshoot2.png
+src/assets/lavanda/screenshoot3.png
+```
+
+You can use any naming pattern you want, but keeping `projectIcon` plus numbered screenshots makes it easier to maintain.
+
+## 2. Import the icon and screenshots
+
+Open `src/data/projects.ts` and import the images from the new folder.
+
+Example:
+
+```ts
+import lavandaIcon from '../assets/lavanda/lavandaIcon.png'
+import screenshot1 from '../assets/lavanda/screenshoot1.png'
+import screenshot2 from '../assets/lavanda/screenshoot2.png'
+```
+
+## 3. Duplicate an existing project entry
+
+Inside the `projects` array in `src/data/projects.ts`, copy an existing project object and update it.
+
+Main fields:
 
 - `id`: use a new number
 - `slug`: unique route id, for example `my-new-app`
 - `title`: project name
 - `period`: year or date label
-- `iconLabel`: temporary letter shown in the icon block
-- `accent`: Tailwind gradient classes for the icon background
+- `iconSrc`: imported icon image
+- `technologies`: stack used in the project
 
-## 2. Add links
+## 4. Add the project links
 
 Inside `links`, you can add:
 
@@ -46,29 +85,43 @@ links: {
 }
 ```
 
-If the project is not on the App Store yet, just omit `appStoreUrl`.
+If the app is not published on the App Store, just omit `appStoreUrl`.
 
-## 3. Add team members
+## 5. Add the team members and LinkedIn URLs
 
-Inside `members`, add the people and their roles:
+Inside `members`, add each person with:
+
+- `name`
+- `role`
+- `linkedinUrl`
+
+Example:
 
 ```ts
 members: [
-  { name: 'Antonio Costa Jr', role: 'iOS Developer' },
-  { name: 'Maria Silva', role: 'Designer' },
-  { name: 'Joao Souza', role: 'Scrum Master' },
-  { name: 'Ana Costa', role: 'Product Owner' },
+  {
+    name: 'Antonio Costa Jr',
+    role: 'iOS Developer',
+    linkedinUrl: 'https://www.linkedin.com/in/your-profile',
+  },
+  {
+    name: 'Maria Silva',
+    role: 'Designer',
+    linkedinUrl: 'https://www.linkedin.com/in/maria-silva',
+  },
 ]
 ```
 
-## 4. Add content in both languages
+The name becomes clickable on the project detail page when `linkedinUrl` is provided.
 
-Each project has:
+## 6. Add the texts in both languages
+
+Each project needs:
 
 - `content.en`
 - `content.pt`
 
-Each one needs:
+Each language block contains:
 
 - `subtitle`
 - `overview`
@@ -97,58 +150,80 @@ content: {
 }
 ```
 
-## 5. Add screenshots
+## 7. Add the screenshots to the project entry
 
-Inside `screenshots`, each screenshot needs:
+Inside `screenshots`, add one object per image.
+
+Each screenshot item uses:
 
 - `id`
 - `title`
-- optional `imageSrc`
-
-Example with placeholders:
-
-```ts
-screenshots: [
-  { id: 'home', title: 'Home screen' },
-  { id: 'detail', title: 'Detail screen' },
-]
-```
-
-If you want real screenshots:
-
-1. Add image files into `src/assets/`
-2. Import them at the top of `src/data/projects.ts`
-3. Pass them to `imageSrc`
+- `imageSrc`
 
 Example:
 
 ```ts
-import screenHome from '../assets/my-app-home.png'
-```
-
-Then:
-
-```ts
 screenshots: [
-  { id: 'home', title: 'Home screen', imageSrc: screenHome },
+  { id: 'project-1', title: 'Launch screen', imageSrc: screenshot1 },
+  { id: 'project-2', title: 'Home', imageSrc: screenshot2 },
+  { id: 'project-3', title: 'Checkout', imageSrc: screenshot3 },
 ]
 ```
 
-## 6. Understand the route
+## 8. Example project structure
 
-The detail page route is created from the `slug`.
+```ts
+{
+  id: 2,
+  slug: 'my-new-app',
+  title: 'My New App',
+  period: '2026',
+  iconSrc: myNewAppIcon,
+  technologies: ['SwiftUI', 'Swift', 'Firebase'],
+  links: {
+    githubUrl: 'https://github.com/your-user/my-new-app',
+  },
+  members: [
+    {
+      name: 'Antonio Costa Jr',
+      role: 'iOS Developer',
+      linkedinUrl: 'https://www.linkedin.com/in/your-profile',
+    },
+  ],
+  screenshots: [
+    { id: 'my-new-app-1', title: 'Home', imageSrc: screenshot1 },
+    { id: 'my-new-app-2', title: 'Detail', imageSrc: screenshot2 },
+  ],
+  content: {
+    en: {
+      subtitle: 'Short summary in English.',
+      overview: 'Project overview in English.',
+      contribution: ['Built the app architecture.'],
+    },
+    pt: {
+      subtitle: 'Resumo curto em portugues.',
+      overview: 'Visao geral do projeto em portugues.',
+      contribution: ['Desenvolvi a arquitetura do app.'],
+    },
+  },
+}
+```
 
-If you use:
+## 9. Understand the route
+
+The project detail page is created from the `slug`.
+
+If the slug is:
 
 ```ts
 slug: 'my-new-app'
 ```
 
-the project page becomes:
+the page URL becomes:
 
 - `/projects/my-new-app`
 
-## 7. Test locally
+## 10. Test locally
 
 Run:
 
@@ -158,11 +233,13 @@ npm run dev
 
 Then verify:
 
-1. the project appears in the home list
-2. clicking it opens the detail page
-3. the project name in the header still returns to home
-4. GitHub and App Store links appear only when provided
-5. the team and contribution sections render correctly
+1. the project appears on the home page
+2. the row is clickable
+3. the icon appears correctly on home and detail
+4. screenshots appear on the detail page
+5. GitHub and App Store links appear only when provided
+6. team member names open LinkedIn correctly
+7. the project name in the header still returns to the home page
 
 ## Related files
 

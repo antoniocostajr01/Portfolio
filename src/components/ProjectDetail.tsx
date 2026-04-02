@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import type { Language, Project, ProjectDetailCopy } from '../types'
 
 interface ProjectDetailProps {
@@ -14,6 +15,26 @@ function ProjectDetail({
   onBackHome,
 }: ProjectDetailProps) {
   const content = project.content[language]
+  const [selectedScreenshot, setSelectedScreenshot] = useState<
+    Project['screenshots'][number] | null
+  >(null)
+  const screenshotAspectClass =
+    project.screenshotOrientation === 'landscape' ? 'aspect-[4/3]' : 'aspect-[9/18]'
+
+  useEffect(() => {
+    if (!selectedScreenshot) {
+      return
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setSelectedScreenshot(null)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedScreenshot])
 
   const GitHubIcon = () => (
     <svg aria-hidden="true" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
@@ -55,11 +76,21 @@ function ProjectDetail({
 
         <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-2xl">
-            <div
-              className={`flex h-16 w-16 items-center justify-center rounded-[1.25rem] bg-gradient-to-br ${project.accent} text-2xl font-semibold text-slate-900 shadow-[inset_0_1px_1px_rgba(255,255,255,0.7),0_12px_24px_rgba(0,0,0,0.16)]`}
-            >
-              {project.iconLabel}
-            </div>
+            {project.iconSrc ? (
+              <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-[1.25rem] bg-transparent p-0">
+                <img
+                  alt={`${project.title} icon`}
+                  className="h-full w-full rounded-[1.25rem] object-cover"
+                  src={project.iconSrc}
+                />
+              </div>
+            ) : (
+              <div
+                className={`flex h-16 w-16 items-center justify-center rounded-[1.25rem] bg-gradient-to-br ${project.accent ?? 'from-slate-200 to-slate-100'} text-2xl font-semibold text-slate-900 shadow-[inset_0_1px_1px_rgba(255,255,255,0.7),0_12px_24px_rgba(0,0,0,0.16)]`}
+              >
+                {project.iconLabel ?? project.title.charAt(0)}
+              </div>
+            )}
             <h1 className="mt-6 text-4xl font-semibold tracking-[-0.05em] text-[var(--color-heading)]">
               {project.title}
             </h1>
@@ -90,22 +121,26 @@ function ProjectDetail({
             </h2>
             <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {project.screenshots.map((screenshot) => (
-                <div
+                <button
                   key={screenshot.id}
-                  className="overflow-hidden rounded-[1.25rem] border border-[var(--glass-border)] bg-[var(--control-surface)]"
+                  className="overflow-hidden rounded-[1.25rem] border border-[var(--glass-border)] bg-[var(--control-surface)] text-left transition hover:opacity-95"
+                  onClick={() => screenshot.imageSrc && setSelectedScreenshot(screenshot)}
+                  type="button"
                 >
                   {screenshot.imageSrc ? (
                     <img
                       alt={screenshot.title}
-                      className="aspect-[9/18] w-full object-cover"
+                      className={`${screenshotAspectClass} w-full object-cover`}
                       src={screenshot.imageSrc}
                     />
                   ) : (
-                    <div className="flex aspect-[9/18] items-center justify-center px-5 text-center text-sm text-[var(--color-subtle)]">
+                    <div
+                      className={`flex ${screenshotAspectClass} items-center justify-center px-5 text-center text-sm text-[var(--color-subtle)]`}
+                    >
                       {screenshot.title}
                     </div>
                   )}
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -171,12 +206,23 @@ function ProjectDetail({
               {project.members.map((member) => (
                 <div
                   key={`${member.name}-${member.role}`}
-                  className="rounded-[1rem] border border-[var(--glass-border)] bg-[var(--control-surface)] px-4 py-3"
+                  className="rounded-[0.9rem] border border-[var(--glass-border)] bg-[var(--control-surface)] px-3 py-2.5"
                 >
-                  <p className="font-medium text-[var(--color-heading)]">
-                    {member.name}
-                  </p>
-                  <p className="mt-1 text-sm text-[var(--color-subtle)]">
+                  {member.linkedinUrl ? (
+                    <a
+                      className="inline-flex items-center gap-2 text-[0.95rem] font-medium text-[var(--color-heading)] underline-offset-4 transition hover:text-[var(--color-subtle)] hover:underline"
+                      href={member.linkedinUrl}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      {member.name}
+                    </a>
+                  ) : (
+                    <p className="text-[0.95rem] font-medium text-[var(--color-heading)]">
+                      {member.name}
+                    </p>
+                  )}
+                  <p className="mt-0.5 text-[0.82rem] text-[var(--color-subtle)]">
                     {member.role}
                   </p>
                 </div>
@@ -185,6 +231,34 @@ function ProjectDetail({
           </div>
         </aside>
       </section>
+
+      {selectedScreenshot?.imageSrc ? (
+        <div
+          aria-label={selectedScreenshot.title}
+          className="fixed inset-0 z-[80] flex items-center justify-center bg-black/80 px-4 py-8 backdrop-blur-sm"
+          onClick={() => setSelectedScreenshot(null)}
+          role="dialog"
+        >
+          <div
+            className="relative flex max-h-full w-full max-w-5xl items-center justify-center"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              aria-label="Close screenshot preview"
+              className="absolute right-0 top-0 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/55 text-white transition hover:bg-black/70"
+              onClick={() => setSelectedScreenshot(null)}
+              type="button"
+            >
+              ×
+            </button>
+            <img
+              alt={selectedScreenshot.title}
+              className="max-h-[88vh] max-w-full rounded-[1.25rem] object-contain"
+              src={selectedScreenshot.imageSrc}
+            />
+          </div>
+        </div>
+      ) : null}
     </main>
   )
 }

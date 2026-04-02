@@ -161,6 +161,9 @@ function App() {
   const [selectedMemoji] = useState(getRandomMemoji)
   const [pathname, setPathname] = useState(() => window.location.pathname)
   const currentYear = new Date().getFullYear()
+  const sortedProjects = [...projects].sort((firstProject, secondProject) => {
+    return secondProject.id - firstProject.id
+  })
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -181,7 +184,7 @@ function App() {
 
   const copy = translations[language]
   const projectSlug = getProjectSlugFromPath(pathname)
-  const selectedProject = projects.find((project) => project.slug === projectSlug)
+  const selectedProject = sortedProjects.find((project) => project.slug === projectSlug)
 
   const navigateTo = (nextPath: string) => {
     window.history.pushState({}, '', nextPath)
@@ -223,7 +226,7 @@ function App() {
             copy={copy.projects}
             language={language}
             onOpenProject={(slug) => navigateTo(`/projects/${slug}`)}
-            projects={projects}
+            projects={sortedProjects}
           />
 
           <div

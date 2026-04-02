@@ -1,141 +1,385 @@
-import type { Project } from '../types'
+import type { Project, ProjectScreenshot } from '../types'
+
+const assetModules = import.meta.glob('../assets/**/*.{png,jpg,jpeg,webp}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>
+
+function getProjectAsset(projectFolder: string, fileName: string) {
+  return assetModules[`../assets/${projectFolder}/${fileName}`]
+}
+
+function createScreenshots(
+  projectFolder: string,
+  items: Array<{ id: string; title: string; fileName: string }>,
+): ProjectScreenshot[] {
+  return items.map(({ id, title, fileName }) => ({
+    id,
+    title,
+    imageSrc: getProjectAsset(projectFolder, fileName),
+  }))
+}
 
 export const projects: Project[] = [
   {
     id: 1,
-    slug: 'pulse',
-    title: 'Pulse',
-    period: '2026',
-    iconLabel: 'P',
-    accent: 'from-sky-400 via-cyan-300 to-white',
-    technologies: ['SwiftUI', 'Combine', 'Core Data'],
+    slug: 'lavanda',
+    title: 'Lavanda',
+    period: '2025',
+    iconSrc: getProjectAsset('lavanda', 'lavandaIcon.png'),
+    iconLabel: 'L',
+    accent: 'from-emerald-200 via-green-100 to-lime-100',
+    technologies: ['UIKit', 'Swift', 'URLSession', 'Core Data', 'ViewCode'],
     links: {
-      githubUrl: 'https://github.com/antoniocostajr01/pulse',
-      appStoreUrl: 'https://apps.apple.com',
+      githubUrl: 'https://github.com/antoniocostajr01/laundry-app',
     },
     members: [
-      { name: 'Antonio Costa Jr', role: 'iOS Developer' },
-      { name: 'Marina Alves', role: 'Designer' },
-      { name: 'Julia Rocha', role: 'Scrum Master' },
-      { name: 'Rafael Lima', role: 'Product Owner' },
+      {
+        name: 'Antonio Costa Jr',
+        role: 'iOS Developer',
+        linkedinUrl: 'https://www.linkedin.com/in/antoniocosta001',
+      },
+      {
+        name: 'Enzo Tonatto',
+        role: 'iOS Developer / Scrum Master',
+        linkedinUrl: 'https://www.linkedin.com/in/enzotonatto/',
+      },
+      {
+        name: 'Gabriel Barbosa',
+        role: 'iOS Developer',
+        linkedinUrl:
+          'https://www.linkedin.com/in/gabriel-cabreira-barbosa-972ba8247/',
+      },
+      {
+        name: 'Gustavo Melleu',
+        role: 'iOS Developer',
+        linkedinUrl: 'https://www.linkedin.com/in/gustavo-melleu-218533231/',
+      },
+      {
+        name: 'Julia Nascimento',
+        role: 'UX/UI Designer',
+        linkedinUrl: 'https://www.linkedin.com/in/julianascimentocosta/',
+      },
     ],
-    screenshots: [
-      { id: 'pulse-1', title: 'Home screen' },
-      { id: 'pulse-2', title: 'Tracking flow' },
-      { id: 'pulse-3', title: 'Insights view' },
-    ],
+    screenshots: createScreenshots('lavanda', [
+      { id: 'lavanda-1', title: 'Launch screen', fileName: 'screenshoot1.png' },
+      { id: 'lavanda-2', title: 'Home', fileName: 'screenshoot2.png' },
+      { id: 'lavanda-3', title: 'Clothes selection', fileName: 'screenshoot3.png' },
+      { id: 'lavanda-4', title: 'Cart summary', fileName: 'screenshoot4.png' },
+      { id: 'lavanda-5', title: 'Address form', fileName: 'screenshoot5.png' },
+      { id: 'lavanda-6', title: 'Order review', fileName: 'screenshoot6.png' },
+      { id: 'lavanda-7', title: 'Payment flow', fileName: 'screenshoot7.png' },
+      { id: 'lavanda-8', title: 'Confirmation', fileName: 'screenshoot8.png' },
+    ]),
     content: {
       en: {
-        subtitle: 'Daily habit and wellness tracking with a clean native flow.',
+        subtitle:
+          'Laundry app focused on a simple order flow, address validation, and checkout.',
         overview:
-          'Pulse is a habit and wellness tracking concept designed for a lightweight and polished native iPhone experience.',
+          'Lavanda is an iOS application designed to simplify the laundry ordering experience. The app guides users through clothes selection, validates delivery addresses using CEP, and closes the flow with a straightforward checkout experience.',
         contribution: [
-          'Built the iOS structure and core user flows.',
-          'Organized reusable UI components and navigation patterns.',
-          'Refined the app experience with focus on clarity, rhythm, and native interaction quality.',
+          'Developed the iOS application structure using Swift and programmatic UI.',
+          'Built the main ordering flow, including clothes selection, summary, and checkout steps.',
+          'Integrated local persistence and external services for address validation and supporting data.',
         ],
       },
       pt: {
         subtitle:
-          'Acompanhamento diário de hábitos e bem-estar com um fluxo nativo e limpo.',
+          'App de lavanderia com foco em pedido simples, validação de endereço e checkout.',
         overview:
-          'Pulse é um conceito de app para acompanhamento de hábitos e bem-estar, pensado para uma experiência nativa leve e bem acabada no iPhone.',
+          'Lavanda é uma aplicação iOS criada para simplificar a experiência de pedido em uma lavanderia. O app conduz o usuário pela seleção de roupas, valida endereços com CEP e fecha o fluxo com uma experiência de checkout direta.',
         contribution: [
-          'Estruturei o app iOS e os fluxos principais da experiência.',
-          'Organizei componentes reutilizáveis de interface e padrões de navegação.',
-          'Refinei a experiência com foco em clareza, ritmo visual e qualidade de interação nativa.',
+          'Desenvolvi a estrutura da aplicação iOS utilizando Swift e UI programática.',
+          'Construí o fluxo principal de pedido, incluindo seleção de roupas, resumo e etapas de checkout.',
+          'Integrei persistência local e serviços externos para validação de endereço e dados de apoio.',
         ],
       },
     },
   },
   {
     id: 2,
-    slug: 'habit-flow',
-    title: 'Habit Flow',
+    slug: 'readup',
+    title: 'ReadUp',
     period: '2025',
-    iconLabel: 'H',
-    accent: 'from-violet-500 via-fuchsia-300 to-white',
-    technologies: ['SwiftUI', 'Firebase', 'MVVM'],
+    iconSrc: getProjectAsset('readUp', 'readUpIcon.png'),
+    iconLabel: 'R',
+    accent: 'from-blue-200 via-indigo-100 to-purple-100',
+    technologies: ['SwiftUI', 'Swift', 'SwiftData', 'Xcode', 'Git'],
     links: {
-      githubUrl: 'https://github.com/antoniocostajr01/habit-flow',
+      githubUrl: 'https://github.com/antoniocostajr01/ReadUp',
     },
     members: [
-      { name: 'Antonio Costa Jr', role: 'iOS Developer' },
-      { name: 'Camila Torres', role: 'Designer' },
-      { name: 'Lucas Pereira', role: 'Product Owner' },
+      {
+        name: 'Antonio Costa Jr',
+        role: 'iOS Developer',
+        linkedinUrl: 'https://www.linkedin.com/in/antoniocosta001',
+      },
     ],
-    screenshots: [
-      { id: 'habit-1', title: 'Planner screen' },
-      { id: 'habit-2', title: 'Habit detail' },
-    ],
+    screenshots: createScreenshots('readUp', [
+      { id: 'readup-1', title: 'Launch screen', fileName: 'screenshoot1.png' },
+      { id: 'readup-2', title: 'Dashboard', fileName: 'screenshoot2.png' },
+      { id: 'readup-3', title: 'Reading session', fileName: 'screenshoot3.png' },
+      { id: 'readup-4', title: 'Book organization', fileName: 'screenshoot4.png' },
+      { id: 'readup-5', title: 'Reading insights', fileName: 'screenshoot5.png' },
+      { id: 'readup-6', title: 'Library status', fileName: 'screenshoot6.png' },
+    ]),
     content: {
       en: {
-        subtitle: 'Simple routine planning focused on consistency and progress.',
+        subtitle:
+          'Reading tracker for sessions, insights, and personal library organization.',
         overview:
-          'Habit Flow explores a minimal routine planner that helps users stay consistent through simple scheduling and progress tracking.',
+          'ReadUp is an iOS application built to support a more consistent reading habit. It helps users time reading sessions, save notes and reflections after each session, and keep their library organized by reading status.',
         contribution: [
-          'Implemented the main planning and tracking screens.',
-          'Improved the project structure to support future features.',
-          'Worked with product and design decisions to keep the app focused and intuitive.',
+          'Designed and developed the iOS application using SwiftUI and Swift.',
+          'Built the reading session flow with timer support and post-session notes.',
+          'Integrated SwiftData to persist books, reading progress, and user insights locally.',
         ],
       },
       pt: {
         subtitle:
-          'Planejamento de rotina simples com foco em consistência e progresso.',
+          'App de leitura para sessões, insights e organização da biblioteca pessoal.',
         overview:
-          'Habit Flow explora um planejador de rotina minimalista, ajudando usuários a manter constância com agendamento simples e acompanhamento de progresso.',
+          'ReadUp é uma aplicação iOS criada para apoiar um hábito de leitura mais consistente. Ela ajuda o usuário a cronometrar sessões de leitura, salvar anotações e reflexões após cada sessão e organizar a biblioteca por status de leitura.',
         contribution: [
-          'Implementei as principais telas de planejamento e acompanhamento.',
-          'Melhorei a estrutura do projeto para suportar evolução futura.',
-          'Atuei junto às decisões de produto e design para manter o app focado e intuitivo.',
+          'Desenhei e desenvolvi a aplicação iOS usando SwiftUI e Swift.',
+          'Construí o fluxo de sessão de leitura com suporte a cronômetro e anotações pós-sessão.',
+          'Integrei SwiftData para persistir localmente livros, progresso de leitura e insights do usuário.',
         ],
       },
     },
   },
   {
     id: 3,
-    slug: 'pocket-chef',
-    title: 'Pocket Chef',
+    slug: 'retrotrip',
+    title: 'RetroTrip',
     period: '2025',
-    iconLabel: 'C',
-    accent: 'from-amber-400 via-orange-300 to-white',
-    technologies: ['UIKit', 'Swift', 'URLSession'],
+    iconSrc: getProjectAsset('retroTrip', 'retroTripIcon.png'),
+    iconLabel: 'RT',
+    accent: 'from-amber-200 via-orange-100 to-red-100',
+    technologies: ['Swift', 'SwiftUI', 'MapKit', 'SceneKit', 'WidgetKit'],
     links: {
-      githubUrl: 'https://github.com/antoniocostajr01/pocket-chef',
-      appStoreUrl: 'https://apps.apple.com',
+      appStoreUrl: 'https://apps.apple.com/br/app/retrotrip/id6752355019',
     },
     members: [
-      { name: 'Antonio Costa Jr', role: 'iOS Developer' },
-      { name: 'Beatriz Souza', role: 'Designer' },
-      { name: 'Henrique Costa', role: 'Scrum Master' },
-      { name: 'Paula Mendes', role: 'Product Owner' },
+      {
+        name: 'Alex Fraga',
+        role: 'iOS Developer',
+        linkedinUrl: 'https://www.linkedin.com/in/alex-fraga1/',
+      },
+      {
+        name: 'Antônio Costa Jr',
+        role: 'iOS Developer / Scrum Master',
+        linkedinUrl: 'https://www.linkedin.com/in/antoniocosta001',
+      },
+      {
+        name: 'Eduardo Fensterseifer',
+        role: 'iOS Developer',
+        linkedinUrl: 'https://www.linkedin.com/in/eduardo-fensterseifer/',
+      },
+      {
+        name: 'Leonardo Simon',
+        role: 'UX/UI Designer / Product Owner',
+        linkedinUrl: 'https://www.linkedin.com/in/leonardosimon/',
+      },
+      {
+        name: 'Marcos Raach',
+        role: 'iOS Developer',
+        linkedinUrl: 'https://www.linkedin.com/in/marcosraach/',
+      },
     ],
-    screenshots: [
-      { id: 'chef-1', title: 'Recipe gallery' },
-      { id: 'chef-2', title: 'Recipe detail' },
-      { id: 'chef-3', title: 'Favorites list' },
-    ],
+    screenshots: createScreenshots('retroTrip', [
+      {
+        id: 'retrotrip-1',
+        title: 'Interactive World Map',
+        fileName: 'screenshoot1.png',
+      },
+      {
+        id: 'retrotrip-2',
+        title: '3D Quiz Environment',
+        fileName: 'screenshoot2.png',
+      },
+      {
+        id: 'retrotrip-3',
+        title: 'Multiplayer Match',
+        fileName: 'screenshoot3.png',
+      },
+      {
+        id: 'retrotrip-4',
+        title: 'Leaderboards',
+        fileName: 'screenshoot4.png',
+      },
+    ]),
     content: {
       en: {
         subtitle:
-          'Recipe and meal ideas designed for a lightweight mobile experience.',
+          'An immersive trivia game that blends history and technology through interactive maps and 3D quizzes.',
         overview:
-          'Pocket Chef is a recipe-focused concept with a friendly browsing flow, clean reading experience, and lightweight mobile interactions.',
+          'RetroTrip is an educational iOS app designed for students, curious minds, and history lovers. It allows users to explore historical events on a world map, test their knowledge in challenging 3D environments, and compete with friends in a real-time multiplayer mode.',
         contribution: [
-          'Built the browsing and detail flows with attention to native navigation.',
-          'Worked on reusable screen composition patterns for recipes and saved items.',
-          'Focused on interface clarity and smooth interaction details across the product.',
+          'Collaborated with a team of five developers to build an immersive and gamified historical learning experience.',
+          'Helped implement features such as interactive world maps, 3D quiz environments, and a comprehensive achievement system.',
+          'Integrated dynamic features including real-time multiplayer leaderboards, a rechargeable energy system, and iOS Home Screen widgets.',
+          'Acted as Scrum Master by helping organize the team workflow, facilitating communication, and keeping deliveries aligned with the project goals and sprint priorities.',
         ],
       },
       pt: {
         subtitle:
-          'Receitas e ideias de refeições pensadas para uma experiência mobile leve.',
+          'Um jogo de curiosidades imersivo que mistura história e tecnologia através de mapas interativos e quizzes em 3D.',
         overview:
-          'Pocket Chef é um conceito focado em receitas, com navegação amigável, leitura limpa e interações leves para a experiência mobile.',
+          'O RetroTrip é um aplicativo educacional para iOS feito para estudantes, mentes curiosas e amantes da história. Ele permite aos usuários explorar eventos históricos pelo mapa-múndi, testar conhecimentos em ambientes 3D desafiadores e competir com amigos em um modo multiplayer em tempo real.',
         contribution: [
-          'Desenvolvi os fluxos de navegação e detalhe com atenção à experiência nativa.',
-          'Trabalhei em padrões reutilizáveis de composição de telas para receitas e itens salvos.',
-          'Mantive foco em clareza de interface e em detalhes fluidos de interação ao longo do produto.',
+          'Colaborei em uma equipe de cinco desenvolvedores para construir uma experiência de aprendizado histórico imersiva e gamificada.',
+          'Auxiliei na implementação de recursos como mapas interativos, ambientes de quiz em 3D e um sistema robusto de conquistas e distintivos.',
+          'Integrei funcionalidades dinâmicas, incluindo placares de multiplayer em tempo real, sistema de energia recarregável e widgets para a Tela de Início do iOS.',
+          'Atuei como Scrum Master, ajudando a organizar o fluxo de trabalho do time, facilitando a comunicação e mantendo as entregas alinhadas com os objetivos do projeto e as prioridades de cada sprint.',
+        ],
+      },
+    },
+  },
+  {
+    id: 4,
+    slug: 'dopamine-news',
+    title: 'Dopamine News',
+    period: '2025',
+    iconSrc: getProjectAsset('dopamine', 'dopamineIcon.png'),
+    iconLabel: 'D',
+    accent: 'from-stone-300 via-zinc-100 to-neutral-100',
+    technologies: [
+      'Swift',
+      'SwiftUI',
+      'Node.js',
+      'MongoDB',
+      'REST API',
+      'JSON',
+      'Backend Integration',
+      'Content Moderation',
+      'Xcode',
+      'Git',
+    ],
+    links: {
+      appStoreUrl: 'https://apps.apple.com/br/app/dopamine-news/id6755773697?l=en-GB',
+    },
+    members: [
+      {
+        name: 'Adriel de Souza',
+        role: 'iOS Developer / Scrum Master',
+        linkedinUrl: 'https://www.linkedin.com/in/dsadriel/',
+      },
+      {
+        name: 'Antonio Costa Jr',
+        role: 'iOS Developer / Scrum Master',
+        linkedinUrl: 'https://www.linkedin.com/in/antoniocosta001',
+      },
+      {
+        name: 'Gabriel Kowaleski',
+        role: 'iOS Developer',
+        linkedinUrl: 'https://www.linkedin.com/in/gabriel-kowaleski/',
+      },
+      {
+        name: 'Vitor Bruno',
+        role: 'iOS Developer / Product Owner',
+        linkedinUrl: 'https://www.linkedin.com/in/vitor-bruno-243975258/',
+      },
+      {
+        name: 'Rafael Julianotte',
+        role: 'UX/UI Designer / Product Owner',
+        linkedinUrl: 'https://www.linkedin.com/in/rafajulianotte/',
+      },
+    ],
+    screenshots: createScreenshots('dopamine', [
+      { id: 'dopamine-1', title: 'Launch screen', fileName: 'screenshoot1.png' },
+      { id: 'dopamine-2', title: 'Daily ritual', fileName: 'screenshoot2.png' },
+      { id: 'dopamine-3', title: 'Word challenge', fileName: 'screenshoot3.png' },
+      { id: 'dopamine-4', title: 'Word search', fileName: 'screenshoot4.png' },
+      { id: 'dopamine-5', title: 'Daily insights', fileName: 'screenshoot5.png' },
+      { id: 'dopamine-6', title: 'Reading experience', fileName: 'screenshoot6.png' },
+      { id: 'dopamine-7', title: 'Content feed', fileName: 'screenshoot7.png' },
+    ]),
+    content: {
+      en: {
+        subtitle:
+          'A daily ritual app combining word games, reflective reading, and quick mental stimulation.',
+        overview:
+          'Dopamine News is an iOS app built around short daily experiences. It combines word-based challenges, reflective reading, horoscope content, and curated news into a lightweight ritual designed to deliver curiosity, focus, and mental stimulation in just a few minutes each day.',
+        contribution: [
+          'Designed and built a Node.js backend consumed by the Swift app, creating a controlled server-side layer between the product and the external content APIs.',
+          'Implemented filtering logic for the news pipeline to reduce sensitive topics such as politics, violence, and wars before the content reached the app.',
+          'Integrated scheduled requests for news and horoscope APIs, storing processed JSON content in MongoDB for the iOS client to consume.',
+          'Contributed to the iOS experience and acted as Scrum Master, helping with delivery flow, team communication, and sprint alignment.',
+        ],
+      },
+      pt: {
+        subtitle:
+          'Um app de ritual diário que combina jogos de palavras, leitura reflexiva e estímulo mental leve.',
+        overview:
+          'Dopamine News é um app iOS construído em torno de experiências curtas do dia a dia. Ele combina desafios com palavras, leitura reflexiva, horóscopo e notícias curadas para criar um ritual leve de poucos minutos focado em curiosidade, concentração e estímulo mental.',
+        contribution: [
+          'Desenhei e desenvolvi um backend em Node.js consumido pelo app em Swift, criando uma camada controlada entre o produto e as APIs externas.',
+          'Implementei uma lógica de filtragem no pipeline de notícias para reduzir a entrada de temas sensíveis como política, violência e guerras no app.',
+          'Integrei requisições periódicas para as APIs de notícias e horóscopo, salvando o conteúdo processado em JSON no MongoDB para consumo do cliente iOS.',
+          'Também contribui na experiência iOS do produto e atuei como Scrum Master, ajudando na organização do fluxo do time, comunicação e alinhamento das sprints.',
+        ],
+      },
+    },
+  },
+  {
+    id: 5,
+    slug: 'leo',
+    title: 'Leo',
+    period: '2026',
+    screenshotOrientation: 'landscape',
+    iconSrc: getProjectAsset('leo', 'leoIcon.png'),
+    iconLabel: 'L',
+    accent: 'from-sky-200 via-cyan-100 to-emerald-100',
+    technologies: [
+      'Swift',
+      'SwiftUI',
+      'iPadOS',
+      'Dynamic Type',
+      'CoreMotion',
+      'SpriteKit',
+      'AVFoundation',
+      'Figma',
+      'Sketchbook',
+      'Procreate Pocket',
+    ],
+    links: {
+      githubUrl: 'https://github.com/antoniocostajr01/Leo',
+    },
+    members: [
+      {
+        name: 'Antonio Costa Jr',
+        role: 'iOS Developer / UX/UI Designer',
+        linkedinUrl: 'https://www.linkedin.com/in/antoniocosta001',
+      },
+    ],
+    screenshots: createScreenshots('leo', [
+      { id: 'leo-1', title: 'Story introduction', fileName: 'screenshoot1.png' },
+      { id: 'leo-2', title: 'Sensory interaction', fileName: 'screenshoot2.png' },
+      { id: 'leo-3', title: 'Narrative moment', fileName: 'screenshoot3.png' },
+      { id: 'leo-4', title: 'Progress through stages', fileName: 'screenshoot4.png' },
+    ]),
+    content: {
+      en: {
+        subtitle:
+          'An iPad narrative experience about food selectivity, inspired by the SOS Approach to Feeding.',
+        overview:
+          'Leo is an iPad app created as my submission for the Swift Student Challenge 2026. Inspired by the real journey of a Brazilian autistic child and grounded in the SOS Approach to Feeding, the experience uses an interactive story to represent stages such as tolerating, interacting, touching, smelling, and tasting foods. The story is lived through a dinosaur, inspired by Leo’s favorite toy, to create a playful and emotionally respectful experience for children, families, caregivers, and educators.',
+        contribution: [
+          'Designed and developed the full iPad experience, turning a real therapeutic journey into an interactive narrative based on the SOS Approach to Feeding.',
+          'Created the app visuals with Figma, Sketchbook, and Procreate Pocket, building custom illustrations with a consistent emotional tone and character-driven identity.',
+          'Implemented accessibility features such as Dynamic Type support, silent-mode flexibility for sensory comfort, and bilingual Portuguese-English support.',
+        ],
+      },
+      pt: {
+        subtitle:
+          'Uma experiência narrativa para iPad sobre seletividade alimentar, inspirada no SOS Approach to Feeding.',
+        overview:
+          'Leo é um app para iPad criado como minha submissão para o Swift Student Challenge 2026. Inspirado na jornada real de um menino brasileiro autista e fundamentado no SOS Approach to Feeding, o projeto usa uma narrativa interativa para representar etapas como tolerar, interagir, tocar, cheirar e experimentar alimentos. A história é vivida por um dinossauro, inspirado no brinquedo favorito do Leo, para criar uma experiência lúdica, respeitosa e emocionalmente envolvente para crianças, famílias, cuidadores e educadores.',
+        contribution: [
+          'Desenhei e desenvolvi toda a experiência para iPad, transformando uma jornada terapêutica real em uma narrativa interativa baseada no SOS Approach to Feeding.',
+          'Criei o visual do app com Figma, Sketchbook e Procreate Pocket, produzindo ilustrações autorais com uma identidade consistente, sensível e centrada no personagem.',
+          'Implementei recursos de acessibilidade como suporte a Dynamic Type, uso em modo silencioso para conforto sensorial e conteúdo bilíngue em português e inglês.',
         ],
       },
     },
