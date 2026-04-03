@@ -13,7 +13,7 @@ function Hero({ imageSrc, imageAlt, imageScaleClass = '', copy }: HeroProps) {
       id="top"
       className="grid items-center gap-5 border-b border-[var(--line-color)] pb-8 pt-2 sm:grid-cols-[0.85fr_1.15fr] sm:gap-6"
     >
-      <div className="flex items-center justify-start">
+      <div className="flex items-center justify-center sm:justify-start">
         {imageSrc ? (
           <div className="flex h-[185px] w-[185px] items-center justify-center overflow-hidden sm:h-[195px] sm:w-[195px]">
             <img

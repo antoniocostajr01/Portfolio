@@ -83,7 +83,7 @@ function Header({
 }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const iconButtonClass =
-    'inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--glass-border)] bg-[var(--control-surface)] text-[var(--color-muted)] outline-none transition hover:text-[var(--color-heading)] hover:bg-[var(--control-hover)] focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]'
+    'inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--glass-border)] bg-[var(--control-surface)] text-[var(--color-muted)] outline-none transition hover:text-[var(--color-heading)] hover:bg-[var(--control-hover)] focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] sm:h-9 sm:w-9'
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
@@ -93,7 +93,8 @@ function Header({
           onClick={onHomeClick}
           type="button"
         >
-          {name}
+          <span className="sm:hidden">Antonio</span>
+          <span className="hidden sm:inline">{name}</span>
         </button>
 
         <div className="flex items-center self-center gap-2">
@@ -101,13 +102,13 @@ function Header({
             <a
               key={link.name}
               aria-label={link.name}
-              className="inline-flex h-9 items-center gap-2 rounded-full border border-[var(--glass-border)] bg-[var(--control-surface)] px-3 text-[0.82rem] text-[var(--color-muted)] outline-none transition hover:bg-[var(--control-hover)] hover:text-[var(--color-heading)] focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--glass-border)] bg-[var(--control-surface)] text-[0.82rem] text-[var(--color-muted)] outline-none transition hover:bg-[var(--control-hover)] hover:text-[var(--color-heading)] focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] sm:h-9 sm:w-auto sm:justify-start sm:gap-2 sm:px-3"
               href={link.url}
               rel="noreferrer"
               target="_blank"
             >
               {link.name === 'GitHub' ? <GitHubIcon /> : <LinkedInIcon />}
-              <span>{link.name}</span>
+              <span className="hidden sm:inline">{link.name}</span>
             </a>
           ))}
 
@@ -126,12 +127,12 @@ function Header({
             {isMenuOpen ? (
               <div
                 aria-label={controls.preferences}
-                className="absolute right-0 top-11 rounded-[0.7rem] border border-[var(--glass-border)] bg-[var(--header-surface)] p-1.5 shadow-[0_12px_24px_rgba(0,0,0,0.14)] backdrop-blur-xl"
+                className="absolute right-0 top-12 rounded-[0.9rem] border border-[var(--glass-border)] bg-[var(--header-surface)] p-2 shadow-[0_12px_24px_rgba(0,0,0,0.14)] backdrop-blur-xl"
                 role="dialog"
               >
-                <div className="space-y-1.5">
+                <div className="space-y-2">
                   <div>
-                    <p className="mb-0.5 text-[0.56rem] font-semibold tracking-[0.14em] text-[var(--color-subtle)] uppercase">
+                    <p className="mb-1 text-[0.62rem] font-semibold tracking-[0.14em] text-[var(--color-subtle)] uppercase">
                       {controls.theme}
                     </p>
                     <div className="theme-switch" role="group" aria-label={controls.theme}>
@@ -155,7 +156,7 @@ function Header({
                   </div>
 
                   <div>
-                    <p className="mb-0.5 text-[0.56rem] font-semibold tracking-[0.14em] text-[var(--color-subtle)] uppercase">
+                    <p className="mb-1 text-[0.62rem] font-semibold tracking-[0.14em] text-[var(--color-subtle)] uppercase">
                       {controls.language}
                     </p>
                     <div className="language-switch" role="group" aria-label={controls.language}>
@@ -165,7 +166,7 @@ function Header({
                         onClick={() => onLanguageChange('pt')}
                         type="button"
                       >
-                        <img alt="" className="h-3 w-3 rounded-full object-cover" src={flagBr} />
+                        <img alt="" className="h-3.5 w-3.5 rounded-full object-cover" src={flagBr} />
                         <span>{controls.portuguese}</span>
                       </button>
                       <button
@@ -174,7 +175,7 @@ function Header({
                         onClick={() => onLanguageChange('en')}
                         type="button"
                       >
-                        <img alt="" className="h-3 w-3 rounded-full object-cover" src={flagUs} />
+                        <img alt="" className="h-3.5 w-3.5 rounded-full object-cover" src={flagUs} />
                         <span>{controls.english}</span>
                       </button>
                     </div>

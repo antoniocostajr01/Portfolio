@@ -29,7 +29,7 @@ export const projects: Project[] = [
     iconSrc: getProjectAsset('lavanda', 'lavandaIcon.png'),
     iconLabel: 'L',
     accent: 'from-emerald-200 via-green-100 to-lime-100',
-    technologies: ['UIKit', 'Swift', 'URLSession', 'Core Data', 'ViewCode'],
+    technologies: ['UIKit', 'Swift', 'URLSession', 'Core Data', 'ViewCode', 'MVC'],
     links: {
       githubUrl: 'https://github.com/antoniocostajr01/laundry-app',
     },
@@ -104,7 +104,7 @@ export const projects: Project[] = [
     iconSrc: getProjectAsset('readUp', 'readUpIcon.png'),
     iconLabel: 'R',
     accent: 'from-blue-200 via-indigo-100 to-purple-100',
-    technologies: ['SwiftUI', 'Swift', 'SwiftData', 'Xcode', 'Git'],
+    technologies: ['SwiftUI', 'Swift', 'SwiftData', 'MVVM', 'Xcode', 'Git'],
     links: {
       githubUrl: 'https://github.com/antoniocostajr01/ReadUp',
     },
@@ -156,7 +156,7 @@ export const projects: Project[] = [
     iconSrc: getProjectAsset('retroTrip', 'retroTripIcon.png'),
     iconLabel: 'RT',
     accent: 'from-amber-200 via-orange-100 to-red-100',
-    technologies: ['Swift', 'SwiftUI', 'MapKit', 'SceneKit', 'WidgetKit'],
+    technologies: ['Swift', 'SwiftUI', 'MapKit', 'SceneKit', 'WidgetKit', 'MVVM'],
     links: {
       appStoreUrl: 'https://apps.apple.com/br/app/retrotrip/id6752355019',
     },
@@ -251,6 +251,7 @@ export const projects: Project[] = [
       'MongoDB',
       'REST API',
       'JSON',
+      'MVVM',
       'Backend Integration',
       'Content Moderation',
       'Xcode',
@@ -335,6 +336,7 @@ export const projects: Project[] = [
       'Swift',
       'SwiftUI',
       'iPadOS',
+      'MVVM',
       'Dynamic Type',
       'CoreMotion',
       'SpriteKit',
@@ -380,6 +382,90 @@ export const projects: Project[] = [
           'Desenhei e desenvolvi toda a experiência para iPad, transformando uma jornada terapêutica real em uma narrativa interativa baseada no SOS Approach to Feeding.',
           'Criei o visual do app com Figma, Sketchbook e Procreate Pocket, produzindo ilustrações autorais com uma identidade consistente, sensível e centrada no personagem.',
           'Implementei recursos de acessibilidade como suporte a Dynamic Type, uso em modo silencioso para conforto sensorial e conteúdo bilíngue em português e inglês.',
+        ],
+      },
+    },
+  },
+  {
+    id: 6,
+    slug: 'untoothable',
+    title: 'UnToothAble',
+    period: '2026',
+    screenshotOrientation: 'landscape',
+    iconSrc: getProjectAsset('untoothable', 'untoothableIcon.png'),
+    iconLabel: 'U',
+    accent: 'from-orange-200 via-amber-100 to-yellow-100',
+    technologies: [
+      'Swift',
+      'SpriteKit',
+      'SwiftUI',
+      'Entity Component System',
+      'Game Architecture',
+      'Scene Navigation',
+      'Animation',
+      'Xcode',
+      'Git',
+    ],
+    links: {
+      githubUrl: 'https://github.com/antoniocostajr01/UnToothAble',
+      appStoreUrl:
+        'https://apps.apple.com/br/app/untoothable-endless-runner/id6760667597?l=en-GB',
+    },
+    members: [
+      {
+        name: 'Antonio Costa Jr',
+        role: 'iOS Developer / Scrum Master',
+        linkedinUrl: 'https://www.linkedin.com/in/antoniocosta001',
+      },
+      {
+        name: 'Giovana H. Rebello',
+        role: 'UX/UI Designer',
+        linkedinUrl: 'https://www.linkedin.com/in/giovanahrebello/',
+      },
+      {
+        name: 'Rafael Toneto',
+        role: 'iOS Developer',
+        linkedinUrl: 'https://www.linkedin.com/in/rafael-toneto-429b76316/',
+      },
+      {
+        name: 'Sofia Leitão',
+        role: 'iOS Developer',
+        linkedinUrl: 'https://www.linkedin.com/in/sofiafleitao/',
+      },
+      {
+        name: 'Richard S. Ros',
+        role: 'iOS Developer',
+        linkedinUrl: 'https://www.linkedin.com/in/richardsros/',
+      },
+    ],
+    screenshots: createScreenshots('untoothable', [
+      { id: 'untoothable-1', title: 'Gameplay', fileName: 'screenshoot1.png' },
+      { id: 'untoothable-2', title: 'Action sequence', fileName: 'screenshoot2.png' },
+      { id: 'untoothable-3', title: 'Level transition', fileName: 'screenshoot3.png' },
+      { id: 'untoothable-4', title: 'Runner mechanics', fileName: 'screenshoot4.png' },
+      { id: 'untoothable-5', title: 'Scene progression', fileName: 'screenshoot5.png' },
+    ]),
+    content: {
+      en: {
+        subtitle:
+          'An endless runner inspired by Jetpack Joyride, built with SpriteKit and scene-based game systems.',
+        overview:
+          'UnToothAble is an endless runner inspired by Jetpack Joyride and built around fast movement, scene transitions, and arcade-style progression. The project uses SpriteKit as its gameplay foundation while combining SwiftUI components for supporting visual layers and interface structure.',
+        contribution: [
+          'Implemented the project’s Entity Component System architecture, structuring the game around a pattern widely used in games to organize entities, behaviors, and reusable logic.',
+          'Built the overall project structure and navigation between scenes, helping define how the player moves through the game flow and level progression.',
+          'Implemented the background system and transitions between levels, as well as SwiftUI visual components used alongside the game experience.',
+        ],
+      },
+      pt: {
+        subtitle:
+          'Um endless runner inspirado em Jetpack Joyride, construído com SpriteKit e sistemas de jogo baseados em cenas.',
+        overview:
+          'UnToothAble é um endless runner inspirado em Jetpack Joyride, pensado em torno de movimentação rápida, transições entre cenas e progressão no estilo arcade. O projeto usa SpriteKit como base principal do gameplay, combinado com componentes em SwiftUI para camadas visuais e estrutura de interface.',
+        contribution: [
+          'Implementei a arquitetura ECS (Entity Component System) do projeto, estruturando o jogo com um padrão muito usado em games para organizar entidades, comportamentos e lógicas reutilizáveis.',
+          'Desenvolvi a estrutura geral do projeto e a navegação entre cenas, ajudando a definir como o jogador percorre o fluxo do jogo e a progressão entre fases.',
+          'Implementei o sistema de background com transições entre níveis e também componentes visuais em SwiftUI usados junto da experiência do jogo.',
         ],
       },
     },

@@ -158,13 +158,13 @@ button {
   }
 
   .language-switch {
-    @apply flex items-center gap-0.5 rounded-full border p-[3px];
+    @apply flex items-center gap-1 rounded-full border p-1;
     border-color: var(--glass-border);
     background: var(--control-surface);
   }
 
   .language-switch-option {
-    @apply inline-flex items-center gap-1 rounded-full px-1.5 py-1 text-[0.6rem] font-medium outline-none transition focus-visible:ring-2;
+    @apply inline-flex min-h-8 items-center gap-1 rounded-full px-2 py-1.5 text-[0.68rem] font-medium outline-none transition focus-visible:ring-2;
     color: var(--color-muted);
     --tw-ring-color: var(--focus-ring);
   }
@@ -180,13 +180,13 @@ button {
   }
 
   .theme-switch {
-    @apply flex items-center gap-0.5 rounded-full border p-[3px];
+    @apply flex items-center gap-1 rounded-full border p-1;
     border-color: var(--glass-border);
     background: var(--control-surface);
   }
 
   .theme-switch-option {
-    @apply inline-flex h-6 w-6 items-center justify-center rounded-full outline-none transition focus-visible:ring-2;
+    @apply inline-flex h-8 w-8 items-center justify-center rounded-full outline-none transition focus-visible:ring-2;
     color: var(--color-muted);
     --tw-ring-color: var(--focus-ring);
   }
