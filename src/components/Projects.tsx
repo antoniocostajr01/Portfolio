@@ -10,14 +10,13 @@ interface ProjectsProps {
 function Projects({ projects, copy, language, onOpenProject }: ProjectsProps) {
   return (
     <section id="projects" className="pb-2">
-      <div className="flex flex-col gap-3 border-b border-[var(--line-color)] pb-6">
+      <div className="flex flex-col gap-3 pb-6">
         <div>
-          <span className="section-kicker">{copy.kicker}</span>
-          <h2 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-[var(--color-heading)] sm:text-3xl">
-            {copy.title}
+          <h2 className="text-4xl font-semibold tracking-[-0.04em] text-[var(--color-heading)] sm:text-3xl">
+            {copy.kicker.toUpperCase()}
           </h2>
         </div>
-        <p className="max-w-2xl text-sm leading-6 text-[var(--color-subtle)]">
+        <p className="w-full max-w-none text-sm leading-6 text-[var(--color-subtle)]">
           {copy.description}
         </p>
       </div>

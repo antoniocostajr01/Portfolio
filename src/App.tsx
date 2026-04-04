@@ -40,14 +40,14 @@ const translations = {
     hero: {
       title: "Hello World! I'm Antonio!",
       description:
-        'I am an iOS developer focused on creating native apps with product clarity, solid performance, and polished interface details. Open to iOS opportunities and collaborations.',
+        'I’m an iOS developer with 2 years of experience building native apps in Swift, with focus on clean architecture, performance, and polished user experiences. I have 3 apps published on the App Store and I’m open to mobile development opportunities in general, with special interest in the Apple ecosystem.',
       imageAlt: 'Antonio Costa Jr memoji avatar',
     },
     projects: {
       kicker: 'Projects',
       title: 'Selected apps',
       description:
-        'Each project opens a dedicated page with screenshots, links, team members, and my role in the product.',
+        'A selection of iOS projects built with Swift, showcasing my experience in developing and delivering native applications. Focused on clean architecture, performance, and intuitive user experiences.',
       openProject: 'Open',
     },
     detail: {
@@ -75,14 +75,14 @@ const translations = {
     hero: {
       title: 'Olá mundo! Eu sou o Antonio.',
       description:
-        'Sou um desenvolvedor iOS focado em criar apps nativos com clareza de produto, performance sólida e interfaces bem acabadas. Aberto a oportunidades e colaborações em iOS.',
+        'Sou um desenvolvedor iOS com 2 anos de experiência criando apps nativos em Swift, com foco em arquitetura limpa, performance e experiências de uso bem acabadas. Tenho 3 apps publicados na App Store e estou aberto a oportunidades em desenvolvimento mobile de forma geral, com interesse especial no ecossistema Apple.',
       imageAlt: 'Avatar memoji de Antonio Costa Jr',
     },
     projects: {
       kicker: 'Projetos',
       title: 'Apps selecionados',
       description:
-        'Cada projeto abre uma página própria com telas, links, membros do time e a minha contribuição no produto.',
+        'Uma seleção de projetos iOS desenvolvidos com Swift, mostrando minha experiência na criação e entrega de aplicações nativas. Com foco em arquitetura limpa, performance e experiências de uso intuitivas.',
       openProject: 'Abrir',
     },
     detail: {
