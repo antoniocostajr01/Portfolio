@@ -87,10 +87,11 @@ function Header({
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 flex justify-center pt-6 px-4 sm:pt-8 pointer-events-none">
-      <div className="vision-glass flex items-center justify-between gap-4 rounded-full px-5 py-3 pointer-events-auto w-full max-w-3xl shadow-[0_16px_32px_-12px_rgba(0,0,0,0.25)]">
+      <div className="vision-glass flex items-center justify-between gap-4 rounded-full px-6 py-4 pointer-events-auto w-full max-w-4xl shadow-[0_16px_32px_-12px_rgba(0,0,0,0.25)]">
         <button
-          className="pl-2 truncate text-left font-bold tracking-tight text-[var(--color-heading)] transition-opacity hover:opacity-70"
+          className="pl-14 text-left font-display font-black tracking-tighter text-accent transition-opacity hover:opacity-70 leading-none pt-2"
           onClick={onHomeClick}
+          style={{ fontSize: '30px' }}
           type="button"
         >
           <span className="sm:hidden">Antonio</span>

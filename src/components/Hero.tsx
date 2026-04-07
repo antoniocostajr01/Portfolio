@@ -1,3 +1,4 @@
+import React, { type ReactNode } from 'react'
 import type { HeroCopy } from '../types'
 
 interface HeroProps {
@@ -5,6 +6,33 @@ interface HeroProps {
   imageAlt: string
   imageScaleClass?: string
   copy: HeroCopy
+}
+
+function highlightKeywords(text: string): ReactNode {
+  const keywords = ['iOS developer', 'iOS', 'Swift', 'SwiftUI', 'App Store', 'clean architecture', 'performance'];
+  
+  let result: ReactNode[] = [text];
+  
+  keywords.forEach(keyword => {
+    const newResult: ReactNode[] = [];
+    result.forEach(chunk => {
+      if (typeof chunk === 'string') {
+        const parts = chunk.split(new RegExp(`\\b(${keyword})\\b`, 'gi'));
+        parts.forEach((part, i) => {
+          if (part.toLowerCase() === keyword.toLowerCase()) {
+            newResult.push(<strong key={`${keyword}-${i}`} className="text-accent font-bold">{part}</strong>);
+          } else if (part) {
+            newResult.push(part);
+          }
+        });
+      } else {
+        newResult.push(chunk);
+      }
+    });
+    result = newResult;
+  });
+  
+  return <>{result.map((r, i) => <React.Fragment key={i}>{r}</React.Fragment>)}</>;
 }
 
 function Hero({ imageSrc, imageAlt, imageScaleClass = '', copy }: HeroProps) {
@@ -16,10 +44,10 @@ function Hero({ imageSrc, imageAlt, imageScaleClass = '', copy }: HeroProps) {
       <div className="flex h-full items-center justify-center sm:justify-start order-2 sm:order-1">
         <div className="max-w-xl text-center sm:text-left">
           <h1 className="max-w-xl text-4xl leading-[1.1] font-bold tracking-tight text-[var(--color-heading)] sm:text-[3.4rem] drop-shadow-sm">
-            {copy.title}
+            {highlightKeywords(copy.title)}
           </h1>
           <p className="mt-6 max-w-lg text-[1.05rem] font-medium leading-relaxed text-[var(--color-text)] sm:text-[1.1rem] opacity-90 drop-shadow-sm">
-            {copy.description}
+            {highlightKeywords(copy.description)}
           </p>
         </div>
       </div>

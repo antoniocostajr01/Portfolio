@@ -31,6 +31,10 @@
 
   --focus-ring: rgba(0, 122, 255, 0.6);
   --line-color: rgba(0, 0, 0, 0.08);
+
+  --color-accent-blue: #0a84ff;
+  --color-accent-pink: #ff375f;
+  --color-accent: var(--color-accent-blue);
 }
 
 :root[data-theme='dark'] {
@@ -44,6 +48,10 @@
   --color-heading: #ffffff;
   --color-muted: #a1a1a6;
   --color-subtle: #8a8a90;
+  
+  --color-accent-blue: #0a84ff;
+  --color-accent-pink: #ff375f;
+  --color-accent: var(--color-accent-blue);
 
   /* Glassmorphism Variables Dark */
   --glass-surface: rgba(20, 20, 22, 0.45);
@@ -221,5 +229,13 @@ button {
     .animate-project-in {
       opacity: 1;
     }
+  }
+
+  .text-accent {
+    background: linear-gradient(90deg, var(--color-accent-blue), var(--color-accent-pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; 
   }
 }
