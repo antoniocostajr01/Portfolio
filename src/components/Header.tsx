@@ -83,13 +83,13 @@ function Header({
 }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const iconButtonClass =
-    'inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--glass-border)] bg-[var(--control-surface)] text-[var(--color-muted)] outline-none transition hover:text-[var(--color-heading)] hover:bg-[var(--control-hover)] focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] sm:h-9 sm:w-9'
+    'inline-flex h-9 w-9 items-center justify-center rounded-full bg-[var(--control-surface)] border border-[var(--glass-border)] text-[var(--color-text)] outline-none transition-all duration-300 hover:text-[var(--color-heading)] hover:bg-[var(--control-hover)] hover:scale-105 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] sm:h-10 sm:w-10 shadow-sm'
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 rounded-[1.2rem] border border-[var(--glass-border)] bg-[var(--header-surface)] px-4 py-3 shadow-[0_12px_36px_rgba(0,0,0,0.12)] backdrop-blur-xl sm:px-5">
+    <header className="fixed inset-x-0 top-0 z-50 flex justify-center pt-6 px-4 sm:pt-8 pointer-events-none">
+      <div className="vision-glass flex items-center justify-between gap-4 rounded-full px-5 py-3 pointer-events-auto w-full max-w-3xl shadow-[0_16px_32px_-12px_rgba(0,0,0,0.25)]">
         <button
-          className="truncate text-left text-sm font-semibold text-[var(--color-heading)]"
+          className="pl-2 truncate text-left font-bold tracking-tight text-[var(--color-heading)] transition-opacity hover:opacity-70"
           onClick={onHomeClick}
           type="button"
         >
@@ -102,22 +102,25 @@ function Header({
             <a
               key={link.name}
               aria-label={link.name}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--glass-border)] bg-[var(--control-surface)] text-[0.82rem] text-[var(--color-muted)] outline-none transition hover:bg-[var(--control-hover)] hover:text-[var(--color-heading)] focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] sm:h-9 sm:w-auto sm:justify-start sm:gap-2 sm:px-3"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--glass-border)] bg-[var(--control-surface)] text-[0.82rem] text-[var(--color-text)] font-medium outline-none transition-all duration-300 hover:bg-[var(--control-hover)] hover:text-[var(--color-heading)] hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] sm:h-10 sm:w-auto sm:justify-start sm:gap-2 sm:px-4 shadow-sm"
               href={link.url}
               rel="noreferrer"
               target="_blank"
             >
-              {link.name === 'GitHub' ? <GitHubIcon /> : <LinkedInIcon />}
+              <div className="opacity-80 group-hover:opacity-100 transition-opacity">
+                {link.name === 'GitHub' ? <GitHubIcon /> : <LinkedInIcon />}
+              </div>
               <span className="hidden sm:inline">{link.name}</span>
             </a>
           ))}
 
-          <div className="relative flex items-center">
+          <div className="relative flex items-center h-full">
+            <div className="w-[1px] h-6 bg-[var(--glass-border)] mx-1" />
             <button
               aria-expanded={isMenuOpen}
               aria-haspopup="dialog"
               aria-label={controls.preferences}
-              className={`${iconButtonClass} ${isMenuOpen ? 'bg-[var(--control-hover)] text-[var(--color-heading)]' : ''}`}
+              className={`${iconButtonClass} ml-1 ${isMenuOpen ? 'bg-[var(--control-hover)] text-[var(--color-heading)] scale-105' : ''}`}
               onClick={() => setIsMenuOpen((current) => !current)}
               type="button"
             >
@@ -127,57 +130,57 @@ function Header({
             {isMenuOpen ? (
               <div
                 aria-label={controls.preferences}
-                className="absolute right-0 top-12 rounded-[0.9rem] border border-[var(--glass-border)] bg-[var(--header-surface)] p-2 shadow-[0_12px_24px_rgba(0,0,0,0.14)] backdrop-blur-xl"
+                className="vision-glass absolute right-0 top-[3.5rem] rounded-[1.5rem] p-4 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.3)] w-56"
                 role="dialog"
               >
-                <div className="space-y-2">
+                <div className="space-y-4">
                   <div>
-                    <p className="mb-1 text-[0.62rem] font-semibold tracking-[0.14em] text-[var(--color-subtle)] uppercase">
+                    <p className="mb-2 text-[0.7rem] font-bold tracking-[0.05em] text-[var(--color-subtle)] uppercase">
                       {controls.theme}
                     </p>
                     <div className="theme-switch" role="group" aria-label={controls.theme}>
                       <button
-                        aria-pressed={selectedTheme === 'light'}
-                        className={`theme-switch-option ${selectedTheme === 'light' ? 'theme-switch-option-active' : ''}`}
-                        onClick={() => onThemeChange('light')}
-                        type="button"
-                      >
-                        <SunIcon />
-                      </button>
-                      <button
-                        aria-pressed={selectedTheme === 'dark'}
-                        className={`theme-switch-option ${selectedTheme === 'dark' ? 'theme-switch-option-active' : ''}`}
-                        onClick={() => onThemeChange('dark')}
-                        type="button"
-                      >
-                        <MoonIcon />
-                      </button>
+                         aria-pressed={selectedTheme === 'light'}
+                         className={`theme-switch-option ${selectedTheme === 'light' ? 'theme-switch-option-active' : ''}`}
+                         onClick={() => onThemeChange('light')}
+                         type="button"
+                       >
+                         <SunIcon />
+                       </button>
+                       <button
+                         aria-pressed={selectedTheme === 'dark'}
+                         className={`theme-switch-option ${selectedTheme === 'dark' ? 'theme-switch-option-active' : ''}`}
+                         onClick={() => onThemeChange('dark')}
+                         type="button"
+                       >
+                         <MoonIcon />
+                       </button>
                     </div>
                   </div>
 
                   <div>
-                    <p className="mb-1 text-[0.62rem] font-semibold tracking-[0.14em] text-[var(--color-subtle)] uppercase">
+                    <p className="mb-2 text-[0.7rem] font-bold tracking-[0.05em] text-[var(--color-subtle)] uppercase">
                       {controls.language}
                     </p>
                     <div className="language-switch" role="group" aria-label={controls.language}>
                       <button
-                        aria-pressed={selectedLanguage === 'pt'}
-                        className={`language-switch-option ${selectedLanguage === 'pt' ? 'language-switch-option-active' : ''}`}
-                        onClick={() => onLanguageChange('pt')}
-                        type="button"
-                      >
-                        <img alt="" className="h-3.5 w-3.5 rounded-full object-cover" src={flagBr} />
-                        <span>{controls.portuguese}</span>
-                      </button>
-                      <button
-                        aria-pressed={selectedLanguage === 'en'}
-                        className={`language-switch-option ${selectedLanguage === 'en' ? 'language-switch-option-active' : ''}`}
-                        onClick={() => onLanguageChange('en')}
-                        type="button"
-                      >
-                        <img alt="" className="h-3.5 w-3.5 rounded-full object-cover" src={flagUs} />
-                        <span>{controls.english}</span>
-                      </button>
+                         aria-pressed={selectedLanguage === 'pt'}
+                         className={`language-switch-option ${selectedLanguage === 'pt' ? 'language-switch-option-active' : ''}`}
+                         onClick={() => onLanguageChange('pt')}
+                         type="button"
+                       >
+                         <img alt="" className="h-4 w-4 rounded-full object-cover shadow-sm" src={flagBr} />
+                         <span>{controls.portuguese}</span>
+                       </button>
+                       <button
+                         aria-pressed={selectedLanguage === 'en'}
+                         className={`language-switch-option ${selectedLanguage === 'en' ? 'language-switch-option-active' : ''}`}
+                         onClick={() => onLanguageChange('en')}
+                         type="button"
+                       >
+                         <img alt="" className="h-4 w-4 rounded-full object-cover shadow-sm" src={flagUs} />
+                         <span>{controls.english}</span>
+                       </button>
                     </div>
                   </div>
                 </div>

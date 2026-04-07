@@ -11,32 +11,32 @@ function Hero({ imageSrc, imageAlt, imageScaleClass = '', copy }: HeroProps) {
   return (
     <section
       id="top"
-      className="grid items-center gap-5 border-b border-[var(--line-color)] pb-8 pt-2 sm:grid-cols-[0.85fr_1.15fr] sm:gap-6"
+      className="grid items-center gap-8 border-b border-[var(--glass-border)] pb-12 pt-6 sm:grid-cols-[1.1fr_0.9fr] sm:gap-12 relative"
     >
-      <div className="flex items-center justify-center sm:justify-start">
+      <div className="flex h-full items-center justify-center sm:justify-start order-2 sm:order-1">
+        <div className="max-w-xl text-center sm:text-left">
+          <h1 className="max-w-xl text-4xl leading-[1.1] font-bold tracking-tight text-[var(--color-heading)] sm:text-[3.4rem] drop-shadow-sm">
+            {copy.title}
+          </h1>
+          <p className="mt-6 max-w-lg text-[1.05rem] font-medium leading-relaxed text-[var(--color-text)] sm:text-[1.1rem] opacity-90 drop-shadow-sm">
+            {copy.description}
+          </p>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-center sm:justify-end order-1 sm:order-2">
         {imageSrc ? (
-          <div className="flex h-[185px] w-[185px] items-center justify-center overflow-hidden sm:h-[195px] sm:w-[195px]">
+          <div className="vision-glass-strong flex h-[200px] w-[200px] items-center justify-center overflow-hidden sm:h-[250px] sm:w-[250px] rounded-[3rem] sm:rounded-[4rem] shadow-[0_24px_48px_-12px_rgba(0,0,0,0.3)]">
             <img
               alt={imageAlt}
-              className={`h-[170px] w-[170px] object-contain object-center sm:h-[180px] sm:w-[180px] ${imageScaleClass}`}
+              className={`h-[180px] w-[180px] object-contain object-center sm:h-[220px] sm:w-[220px] ${imageScaleClass} drop-shadow-2xl opacity-95`}
               src={imageSrc}
             />
           </div>
         ) : (
-          <div className="flex min-h-[170px] w-full max-w-[185px] items-center justify-center rounded-[1rem] border border-dashed border-[var(--glass-border)] px-6 text-center text-sm text-[var(--color-muted)]">
+          <div className="vision-glass-strong flex min-h-[200px] w-full max-w-[200px] items-center justify-center rounded-[3rem] sm:rounded-[4rem] shadow-[0_24px_48px_-12px_rgba(0,0,0,0.3)] px-6 text-center text-sm font-medium text-[var(--color-text)]">
           </div>
         )}
-      </div>
-
-      <div className="flex h-full items-center justify-center sm:justify-end">
-        <div className="max-w-xl text-center sm:text-left">
-          <h1 className="max-w-xl text-3xl leading-[1] font-semibold tracking-[-0.05em] text-[var(--color-heading)] sm:text-[2.6rem]">
-            {copy.title}
-          </h1>
-          <p className="mt-4 max-w-lg text-[0.98rem] leading-7 text-[var(--color-muted)] sm:text-base">
-            {copy.description}
-          </p>
-        </div>
       </div>
     </section>
   )

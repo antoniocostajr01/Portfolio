@@ -195,7 +195,7 @@ function App() {
   const goHome = () => navigateTo('/')
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[var(--color-bg)] text-[var(--color-text)] transition-colors duration-300">
+    <div className="relative min-h-screen overflow-x-hidden pt-28 sm:pt-36 pb-12 px-4 sm:px-8 flex flex-col items-center">
       <Header
         controls={copy.controls}
         name="Antonio Costa Jr"
@@ -208,14 +208,16 @@ function App() {
       />
 
       {selectedProject ? (
-        <ProjectDetail
-          copy={copy.detail}
-          language={language}
-          onBackHome={goHome}
-          project={selectedProject}
-        />
+        <div className="vision-glass relative mx-auto w-full max-w-5xl rounded-[2.5rem] sm:rounded-[3rem] p-6 sm:p-10 mb-8 overflow-hidden">
+          <ProjectDetail
+            copy={copy.detail}
+            language={language}
+            onBackHome={goHome}
+            project={selectedProject}
+          />
+        </div>
       ) : (
-        <main className="relative mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 pb-6 pt-24 sm:px-8 lg:px-10">
+        <main className="vision-glass relative mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 sm:px-12 py-10 sm:py-14 rounded-[2.5rem] sm:rounded-[3rem] mb-8">
           <Hero
             copy={copy.hero}
             imageAlt={copy.hero.imageAlt}
@@ -231,7 +233,7 @@ function App() {
 
           <div
             id="contact"
-            className="border-t border-[var(--line-color)] pt-5 text-sm text-[var(--color-subtle)]"
+            className="border-t border-[var(--glass-border)] pt-6 pb-2 text-center text-[0.85rem] font-medium text-[var(--color-subtle)]"
           >
             &copy; {currentYear} Antonio Costa Jr
           </div>

@@ -4,57 +4,57 @@
   font-family:
     "SF Pro Display",
     "SF Pro Text",
+    "Inter",
     -apple-system,
     BlinkMacSystemFont,
-    "Helvetica Neue",
-    "Helvetica",
-    "Arial",
     sans-serif;
   font-synthesis: none;
   color-scheme: light;
-  --color-bg: #f5f5f7;
+  
+  --color-bg-mesh-1: rgba(230, 240, 255, 1);
+  --color-bg-mesh-2: rgba(245, 235, 245, 1);
+  --color-bg-mesh-3: rgba(225, 240, 250, 1);
+
   --color-text: #1d1d1f;
-  --color-heading: #111111;
-  --color-muted: #444446;
-  --color-subtle: #6e6e73;
-  --glass-border: rgba(255, 255, 255, 0.58);
-  --glass-surface: rgba(255, 255, 255, 0.3);
-  --header-surface: rgba(255, 255, 255, 0.52);
-  --control-surface: rgba(255, 255, 255, 0.68);
-  --control-hover: rgba(255, 255, 255, 0.92);
-  --hero-frame-start: rgba(255, 255, 255, 0.82);
-  --hero-frame-end: rgba(255, 255, 255, 0.28);
-  --hero-inner-start: rgba(255, 255, 255, 0.95);
-  --hero-inner-mid: rgba(241, 241, 243, 0.72);
-  --hero-inner-end: rgba(210, 210, 215, 0.32);
-  --focus-ring: #0f6cfd;
-  --primary-chip-bg: linear-gradient(135deg, #0f6cfd 0%, #0a84ff 100%);
-  --primary-chip-text: #ffffff;
-  --primary-chip-hover: linear-gradient(135deg, #005edc 0%, #006fe8 100%);
-  --line-color: rgba(17, 17, 17, 0.09);
+  --color-heading: #000000;
+  --color-muted: #555557;
+  --color-subtle: #737378;
+  
+  /* Glassmorphism Variables */
+  --glass-surface: rgba(255, 255, 255, 0.45);
+  --glass-strong: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-border-highlight: rgba(255, 255, 255, 0.8);
+  --header-surface: rgba(255, 255, 255, 0.35);
+  --control-surface: rgba(255, 255, 255, 0.55);
+  --control-hover: rgba(255, 255, 255, 0.85);
+
+  --focus-ring: rgba(0, 122, 255, 0.6);
+  --line-color: rgba(0, 0, 0, 0.08);
 }
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --color-bg: #0a0a0a;
+  
+  --color-bg-mesh-1: rgba(10, 15, 30, 1);
+  --color-bg-mesh-2: rgba(20, 10, 25, 1);
+  --color-bg-mesh-3: rgba(10, 25, 25, 1);
+
   --color-text: #f5f5f7;
   --color-heading: #ffffff;
-  --color-muted: #b3b3b8;
-  --color-subtle: #8f8f95;
+  --color-muted: #a1a1a6;
+  --color-subtle: #8a8a90;
+
+  /* Glassmorphism Variables Dark */
+  --glass-surface: rgba(20, 20, 22, 0.45);
+  --glass-strong: rgba(30, 30, 34, 0.65);
   --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-surface: rgba(18, 18, 18, 0.72);
-  --header-surface: rgba(18, 18, 18, 0.9);
-  --control-surface: rgba(28, 28, 30, 0.92);
-  --control-hover: rgba(44, 44, 46, 0.98);
-  --hero-frame-start: rgba(22, 22, 24, 0.95);
-  --hero-frame-end: rgba(12, 12, 13, 0.9);
-  --hero-inner-start: rgba(34, 34, 36, 0.95);
-  --hero-inner-mid: rgba(24, 24, 25, 0.88);
-  --hero-inner-end: rgba(14, 14, 15, 0.94);
-  --focus-ring: #7cc2ff;
-  --primary-chip-bg: linear-gradient(135deg, #2f8cff 0%, #66b6ff 100%);
-  --primary-chip-text: #03111d;
-  --primary-chip-hover: linear-gradient(135deg, #52a4ff 0%, #86c7ff 100%);
+  --glass-border-highlight: rgba(255, 255, 255, 0.15);
+  --header-surface: rgba(15, 15, 18, 0.35);
+  --control-surface: rgba(45, 45, 50, 0.45);
+  --control-hover: rgba(65, 65, 70, 0.7);
+
+  --focus-ring: rgba(10, 132, 255, 0.6);
   --line-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -67,16 +67,19 @@ body {
   min-height: 100vh;
   margin: 0;
   color: var(--color-text);
-  background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 28%),
-    linear-gradient(180deg, #fbfbfd 0%, #f5f5f7 55%, #efeff2 100%);
-  transition:
-    background 220ms ease,
-    color 220ms ease;
-}
-
-:root[data-theme='dark'] body {
-  background: linear-gradient(180deg, #080808 0%, #0a0a0a 55%, #090909 100%);
+  
+  /* Abstract Mesh Gradient Background to show off glass */
+  background-color: var(--color-bg-mesh-1);
+  background-image: 
+    radial-gradient(at 80% 0%, var(--color-bg-mesh-2) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, var(--color-bg-mesh-3) 0px, transparent 50%),
+    radial-gradient(at 80% 100%, var(--color-bg-mesh-2) 0px, transparent 50%),
+    radial-gradient(at 0% 0%, var(--color-bg-mesh-1) 0px, transparent 50%);
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  
+  letter-spacing: -0.01em;
+  transition: color 300ms ease;
 }
 
 a {
@@ -95,113 +98,113 @@ button {
 @keyframes project-in {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(20px) scale(0.98);
   }
-
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 @layer components {
+  /* Spatial Computing Base Glass Panel */
+  .vision-glass {
+    @apply backdrop-blur-[40px] md:backdrop-blur-[60px] saturate-150;
+    background: var(--glass-surface);
+    border: 1px solid var(--glass-border);
+    box-shadow: 
+      0 12px 48px -12px rgba(0, 0, 0, 0.2), 
+      inset 0 1px 0 0 var(--glass-border-highlight);
+  }
+
+  .vision-glass-strong {
+    @apply backdrop-blur-[20px] saturate-150;
+    background: var(--glass-strong);
+    border: 1px solid var(--glass-border);
+    box-shadow: 
+      0 4px 20px -8px rgba(0, 0, 0, 0.15), 
+      inset 0 1px 0 0 var(--glass-border-highlight);
+  }
+
+  /* Components based on glass */
   .section-kicker {
-    @apply inline-flex px-0 py-0 text-[0.72rem] font-semibold tracking-[0.24em] uppercase;
-    color: var(--color-subtle);
+    @apply inline-flex px-0 py-0 text-lg font-bold tracking-tight;
+    color: var(--color-heading);
   }
 
   .primary-chip {
-    @apply inline-flex items-center justify-center rounded-full px-4 py-2.5 text-sm font-semibold shadow-[0_10px_24px_rgba(15,23,42,0.16)] outline-none transition hover:-translate-y-0.5 focus-visible:ring-2;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    background: var(--primary-chip-bg);
-    color: var(--primary-chip-text);
-    box-shadow:
-      0 10px 24px rgba(15, 23, 42, 0.16),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    --tw-ring-color: var(--focus-ring);
+    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-full outline-none transition-all duration-300;
+    background: var(--color-heading);
+    color: var(--color-bg-mesh-1); /* inverse text */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
-
   .primary-chip:hover {
-    background: var(--primary-chip-hover);
+    transform: scale(1.03);
+    opacity: 0.9;
+  }
+  .primary-chip:active {
+    transform: scale(0.97);
   }
 
   .secondary-chip {
-    @apply inline-flex items-center justify-center rounded-full border px-4 py-2.5 text-sm font-medium backdrop-blur-xl outline-none transition hover:-translate-y-0.5 focus-visible:ring-2;
-    border-color: var(--glass-border);
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-full outline-none transition-all duration-300;
     background: var(--control-surface);
-    color: var(--color-muted);
-    --tw-ring-color: var(--focus-ring);
+    border: 1px solid var(--glass-border);
+    color: var(--color-text);
   }
-
   .secondary-chip:hover {
     background: var(--control-hover);
-    color: var(--color-heading);
+    transform: scale(1.02);
+  }
+  .secondary-chip:active {
+    transform: scale(0.98);
   }
 
   .toggle-chip {
-    @apply inline-flex min-w-11 items-center justify-center rounded-full px-3 py-1.5 text-[0.72rem] font-semibold outline-none transition focus-visible:ring-2;
-    color: var(--color-muted);
-    --tw-ring-color: var(--focus-ring);
+    @apply inline-flex min-w-[2.75rem] items-center justify-center px-3 py-1.5 text-[0.72rem] font-medium rounded-full outline-none transition-all duration-300;
+    background: var(--control-surface);
+    border: 1px solid var(--glass-border);
+    color: var(--color-text);
   }
-
   .toggle-chip:hover {
     background: var(--control-hover);
-    color: var(--color-heading);
   }
-
   .toggle-chip-active {
-    background: var(--primary-chip-bg);
-    color: var(--primary-chip-text);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      0 10px 24px rgba(15, 23, 42, 0.14);
+    background: var(--color-text);
+    color: var(--color-bg-mesh-1);
+    border-color: transparent;
   }
 
-  .language-switch {
-    @apply flex items-center gap-1 rounded-full border p-1;
-    border-color: var(--glass-border);
-    background: var(--control-surface);
+  .language-switch, .theme-switch {
+    @apply flex items-center justify-center gap-1 rounded-full p-1;
+    background: rgba(0,0,0,0.05);
+  }
+  :root[data-theme='dark'] .language-switch, :root[data-theme='dark'] .theme-switch {
+    background: rgba(0,0,0,0.3);
   }
 
+  .language-switch-option, .theme-switch-option {
+    @apply inline-flex items-center justify-center outline-none transition-all duration-300 font-medium px-2.5 py-1.5 rounded-full;
+    background: transparent;
+    color: var(--color-muted);
+  }
+  
   .language-switch-option {
-    @apply inline-flex min-h-8 items-center gap-1 rounded-full px-2 py-1.5 text-[0.68rem] font-medium outline-none transition focus-visible:ring-2;
-    color: var(--color-muted);
-    --tw-ring-color: var(--focus-ring);
+    @apply min-h-[2.2rem] gap-1.5 text-[0.75rem];
   }
-
-  .language-switch-option:hover {
-    background: var(--control-hover);
-    color: var(--color-heading);
-  }
-
-  .language-switch-option-active {
-    background: var(--primary-chip-bg);
-    color: var(--primary-chip-text);
-  }
-
-  .theme-switch {
-    @apply flex items-center gap-1 rounded-full border p-1;
-    border-color: var(--glass-border);
-    background: var(--control-surface);
-  }
-
+  
   .theme-switch-option {
-    @apply inline-flex h-8 w-8 items-center justify-center rounded-full outline-none transition focus-visible:ring-2;
-    color: var(--color-muted);
-    --tw-ring-color: var(--focus-ring);
+    @apply h-9 w-9;
   }
 
-  .theme-switch-option:hover {
+  .language-switch-option:hover, .theme-switch-option:hover {
+    color: var(--color-text);
+  }
+
+  .language-switch-option-active, .theme-switch-option-active {
+    @apply shadow-sm;
     background: var(--control-hover);
-    color: var(--color-heading);
-  }
-
-  .theme-switch-option-active {
-    background: var(--primary-chip-bg);
-    color: var(--primary-chip-text);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      0 10px 24px rgba(15, 23, 42, 0.14);
+    color: var(--color-text);
   }
 
   .project-row {
@@ -210,7 +213,7 @@ button {
 
   @media (prefers-reduced-motion: no-preference) {
     .animate-project-in {
-      animation: project-in 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation: project-in 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
   }
 
