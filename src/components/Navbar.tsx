@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion'
+import { Moon, Sun } from 'lucide-react'
 
-import ThemeToggle from './ThemeToggle'
 import type { Theme } from '../types'
 
 const navItems = [
   { id: 'about', label: 'About' },
-  { id: 'projects', label: 'Projects' },
+  { id: 'stack', label: 'Stack' },
   { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
   { id: 'contact', label: 'Contact' },
 ]
 
@@ -20,29 +21,31 @@ function Navbar({ activeSection, theme, onToggleTheme }: NavbarProps) {
   return (
     <motion.header
       animate={{ y: 0, opacity: 1 }}
-      className="fixed inset-x-0 top-0 z-50 px-4 py-4 sm:px-6 lg:px-10"
-      initial={{ y: -24, opacity: 0 }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed inset-x-0 top-0 z-50"
+      initial={{ y: -40, opacity: 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="mx-auto flex w-full max-w-[1380px] items-center justify-between rounded-full border border-[var(--border-soft)] bg-[var(--nav-surface)] px-4 py-3 shadow-[0_18px_40px_rgba(0,0,0,0.14)] backdrop-blur-2xl sm:px-6">
+      <div className="mx-auto flex w-full items-center justify-between border-b-2 border-[var(--border-hard)] bg-[var(--nav-bg)] px-6 py-3 backdrop-blur-xl sm:px-8 lg:px-12">
+        {/* Logo — lowercase, with a decorative line */}
         <a
-          className="font-heading text-lg tracking-[0.08em] text-[var(--color-heading)] sm:text-xl"
+          className="group relative font-display text-xl font-black tracking-wide text-[var(--color-heading)]"
           href="#hero"
         >
-          antonio
+          <span className="relative z-10">antonio</span>
+          <span className="absolute -bottom-1 left-0 h-[3px] w-full bg-[var(--color-orange)] transition-transform origin-left group-hover:scale-x-110" />
         </a>
 
-        <nav className="hidden items-center gap-2 md:flex">
+        {/* Nav links */}
+        <nav className="hidden items-center gap-0 md:flex">
           {navItems.map((item) => {
             const isActive = activeSection === item.id
-
             return (
               <a
                 key={item.id}
-                className={`rounded-full px-4 py-2 text-sm font-medium tracking-[0.16em] transition-colors duration-200 ${
+                className={`relative border-x border-[var(--border-soft)] px-5 py-2 text-[0.65rem] font-extrabold uppercase tracking-[0.22em] transition-all duration-200 ${
                   isActive
-                    ? 'bg-[var(--nav-pill-active)] text-[var(--color-heading)]'
-                    : 'text-[var(--color-muted)] hover:text-[var(--color-heading)]'
+                    ? 'bg-[var(--color-orange)] text-white'
+                    : 'text-[var(--color-muted)] hover:bg-[var(--surface-ink)] hover:text-[var(--color-heading)]'
                 }`}
                 href={`#${item.id}`}
               >
@@ -52,10 +55,19 @@ function Navbar({ activeSection, theme, onToggleTheme }: NavbarProps) {
           })}
         </nav>
 
+        {/* Actions */}
         <div className="flex items-center gap-3">
-          <ThemeToggle theme={theme} onToggleTheme={onToggleTheme} />
+          <button
+            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            className="flex h-9 w-9 items-center justify-center border-2 border-[var(--border-hard)] text-[var(--color-heading)] transition-all hover:border-[var(--color-orange)] hover:bg-[var(--color-orange)] hover:text-white"
+            onClick={onToggleTheme}
+            type="button"
+          >
+            {theme === 'light' ? <Moon className="h-3.5 w-3.5" /> : <Sun className="h-3.5 w-3.5" />}
+          </button>
+
           <a
-            className="hidden rounded-full bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[var(--color-accent-contrast)] shadow-[0_10px_24px_rgba(246,170,61,0.28)] transition-transform duration-200 hover:-translate-y-0.5 sm:inline-flex"
+            className="hidden items-center gap-2 bg-[var(--color-orange)] px-5 py-2.5 text-[0.65rem] font-extrabold uppercase tracking-[0.16em] text-white transition-all duration-200 hover:bg-[var(--color-orange-fire)] hover:shadow-[0_0_20px_var(--color-orange-glow)] sm:inline-flex"
             href="#contact"
           >
             Get in touch

@@ -1,15 +1,23 @@
 import { motion } from 'framer-motion'
 
+import konohaImg from '../assets/konoha-skyline.png'
+
 const experienceItems = [
   {
     period: '2025 — Present',
     title: 'Apple Developer Academy',
-    bullets: ['iOS Development', 'Team projects', 'UX/UI and prototyping'],
+    subtitle: 'iOS Developer · Scrum Master',
+    description:
+      'Building iOS applications, collaborating in team projects, and delivering real products to the App Store. Focus on Swift, SwiftUI, UIKit, UX design, and agile methodologies.',
+    highlights: ['iOS Development', 'Team Projects', 'UX/UI & Prototyping', 'Published Apps'],
   },
   {
     period: '2024 — 2025',
-    title: 'Personal Projects / Freelance',
-    bullets: ['Development of iOS apps', 'UI/UX design'],
+    title: 'Personal Projects & Freelance',
+    subtitle: 'iOS Developer · Designer',
+    description:
+      'Independently building iOS applications, exploring frameworks, and developing a strong foundation in Swift and interface design.',
+    highlights: ['iOS Apps', 'UI/UX Design', 'Self-directed Learning'],
   },
 ]
 
@@ -17,79 +25,88 @@ function Experience() {
   return (
     <section
       id="experience"
-      className="relative overflow-hidden px-4 py-16 sm:px-6 lg:px-10 lg:py-24"
+      className="relative overflow-hidden px-6 py-20 sm:px-8 lg:px-12 lg:py-32"
     >
-      <div className="mx-auto grid max-w-[1380px] gap-8 lg:grid-cols-[0.58fr_0.42fr]">
+      {/* Konoha skyline at the bottom */}
+      <div className="konoha-backdrop">
+        <img alt="" className="h-auto w-full object-contain" src={konohaImg} />
+      </div>
+
+      {/* Orange top accent */}
+      <div className="absolute inset-x-0 top-0 h-[3px] bg-[var(--color-orange)] opacity-50" />
+
+      {/* Background watermark */}
+      <div className="pointer-events-none absolute left-0 top-[45%] -translate-y-1/2 select-none">
+        <span className="watermark-text block whitespace-nowrap">EXPERIENCE</span>
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-[1400px]">
+        {/* Header */}
         <motion.div
-          className="relative overflow-hidden rounded-[2.25rem] bg-[var(--color-primary)] p-8 text-[var(--color-primary-contrast)] shadow-[0_24px_60px_rgba(16,26,56,0.18)]"
-          initial={{ opacity: 0, y: 28 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-14"
+          initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-end pr-6">
-            <span className="experience-outline-text">RESUME</span>
-          </div>
+          <span className="seal-badge">第三章 · Experience</span>
+          <h2 className="section-title mt-5">
+            MY{' '}
+            <span className="text-[var(--color-orange)]">JOURNEY</span>
+          </h2>
+          <div className="mt-3 h-[2px] w-24 bg-[var(--color-orange)]" />
+        </motion.div>
 
-          <div className="relative z-10">
-            <span className="section-badge-dark">Experience</span>
-            <h2 className="mt-5 font-heading text-[3.6rem] leading-[0.9] tracking-[-0.05em] sm:text-[5rem]">
-              Timeline
-            </h2>
+        {/* Timeline */}
+        <div className="relative ml-3 border-l-[3px] border-[var(--color-orange)] pl-8 lg:ml-8 lg:pl-14"
+          style={{ borderImage: 'linear-gradient(to bottom, var(--color-orange), transparent) 1' }}
+        >
+          {experienceItems.map((item, index) => (
+            <motion.div
+              key={item.title}
+              className="relative mb-16 last:mb-0"
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {/* Chakra dot */}
+              <div className="chakra-dot absolute -left-[calc(2rem+11px)] top-2 lg:-left-[calc(3.5rem+11px)]" />
 
-            <div className="relative mt-10 space-y-8 before:absolute before:bottom-0 before:left-[0.8rem] before:top-3 before:w-px before:bg-white/20">
-              {experienceItems.map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  className="relative pl-10"
-                  initial={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.45, delay: 0.08 * index }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.25 }}
-                >
-                  <span className="absolute left-0 top-2 h-4 w-4 rounded-full border border-white/40 bg-[var(--color-accent)]" />
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent)]">
+              {/* Content wrapped in manga panel */}
+              <div className="manga-panel p-6">
+                {/* Period stamp */}
+                <div className="mb-4 inline-flex bg-[var(--color-orange)] px-3 py-1.5">
+                  <span className="text-[0.6rem] font-extrabold uppercase tracking-[0.2em] text-white">
                     {item.period}
-                  </p>
-                  <h3 className="mt-2 text-2xl font-semibold">{item.title}</h3>
-                  <div className="mt-4 flex flex-wrap gap-3">
-                    {item.bullets.map((bullet) => (
-                      <span key={bullet} className="timeline-pill">
-                        {bullet}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+                  </span>
+                </div>
 
-        <motion.div
-          className="rounded-[2.25rem] border border-[var(--border-soft)] bg-[var(--surface-card)] p-8 shadow-[0_18px_40px_rgba(0,0,0,0.08)]"
-          initial={{ opacity: 0, x: 24 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
-        >
-          <span className="section-badge">Focus areas</span>
-          <p className="mt-6 text-lg leading-8 text-[var(--color-muted)]">
-            My experience is centered on native mobile development, thoughtful
-            interface design, and collaboration across product and engineering.
-          </p>
+                <h3 className="font-display text-2xl font-black uppercase text-[var(--color-heading)] sm:text-3xl">
+                  {item.title}
+                </h3>
+                <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-[var(--color-orange)]">
+                  {item.subtitle}
+                </p>
+                <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
+                  {item.description}
+                </p>
 
-          <div className="mt-8 grid gap-4">
-            {['Swift', 'Native UI', 'Product thinking', 'Scalable solutions'].map((item) => (
-              <motion.div
-                key={item}
-                className="rounded-[1.4rem] bg-[var(--surface-soft)] px-4 py-4 text-base font-medium text-[var(--color-heading)]"
-                whileHover={{ x: 6 }}
-              >
-                {item}
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                {/* Highlights as stamps */}
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {item.highlights.map((h) => (
+                    <span
+                      key={h}
+                      className="ink-tag text-[0.6rem]"
+                    >
+                      {h}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   )

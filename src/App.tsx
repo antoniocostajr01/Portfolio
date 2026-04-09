@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import About from './components/About'
 import Contact from './components/Contact'
 import Experience from './components/Experience'
-import Hero from './components/Hero'
+import GrainOverlay from './components/GrainOverlay'
 import Navbar from './components/Navbar'
 import Projects from './components/Projects'
 import TechStack from './components/TechStack'
@@ -20,15 +20,9 @@ const memojiImages = Object.values(memojiModules)
 const sectionIds = ['hero', 'about', 'stack', 'experience', 'projects', 'contact']
 
 function getInitialTheme(): Theme {
-  if (typeof window === 'undefined') {
-    return 'light'
-  }
-
-  const storedTheme = window.localStorage.getItem('theme')
-  if (storedTheme === 'light' || storedTheme === 'dark') {
-    return storedTheme
-  }
-
+  if (typeof window === 'undefined') return 'dark'
+  const stored = window.localStorage.getItem('theme')
+  if (stored === 'light' || stored === 'dark') return stored
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
@@ -37,12 +31,8 @@ function App() {
   const [activeSection, setActiveSection] = useState('hero')
 
   const selectedMemoji = useMemo(() => {
-    if (memojiImages.length === 0) {
-      return ''
-    }
-
-    const randomIndex = Math.floor(Math.random() * memojiImages.length)
-    return memojiImages[randomIndex]
+    if (memojiImages.length === 0) return ''
+    return memojiImages[Math.floor(Math.random() * memojiImages.length)]
   }, [])
 
   const featuredProjects = useMemo(() => {
@@ -56,41 +46,33 @@ function App() {
   }, [theme])
 
   useEffect(() => {
-    const observedSections = sectionIds
+    const sections = sectionIds
       .map((id) => document.getElementById(id))
-      .filter((section): section is HTMLElement => Boolean(section))
+      .filter((s): s is HTMLElement => Boolean(s))
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const visibleEntry = entries
-          .filter((entry) => entry.isIntersecting)
+        const visible = entries
+          .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-
-        if (visibleEntry?.target.id) {
-          setActiveSection(visibleEntry.target.id)
-        }
+        if (visible?.target.id) setActiveSection(visible.target.id)
       },
-      {
-        rootMargin: '-24% 0px -48% 0px',
-        threshold: [0.2, 0.35, 0.55],
-      },
+      { rootMargin: '-24% 0px -48% 0px', threshold: [0.2, 0.35, 0.55] },
     )
 
-    observedSections.forEach((section) => observer.observe(section))
-
+    sections.forEach((s) => observer.observe(s))
     return () => observer.disconnect()
   }, [])
 
   return (
     <div className="min-h-screen overflow-x-clip bg-[var(--color-bg)] text-[var(--color-text)] transition-colors duration-300">
+      <GrainOverlay />
       <Navbar
         activeSection={activeSection}
         theme={theme}
-        onToggleTheme={() => setTheme((currentTheme) => (currentTheme === 'light' ? 'dark' : 'light'))}
+        onToggleTheme={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
       />
-
       <main className="relative">
-        <Hero profileSrc={selectedMemoji} />
         <About profileSrc={selectedMemoji} />
         <TechStack />
         <Experience />

@@ -1,65 +1,60 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Righteous';
-  src: url('./assets/righteous-regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* ─── NARUTO-INSPIRED DESIGN TOKENS ─── */
 
 :root {
-  --color-bg: #f5f1e8;
-  --color-text: #151924;
-  --color-heading: #0f1726;
-  --color-muted: rgba(21, 25, 36, 0.74);
-  --color-primary: #1d3c78;
-  --color-primary-contrast: #eef4ff;
-  --color-primary-muted: rgba(238, 244, 255, 0.76);
-  --color-accent: #f6aa3d;
-  --color-accent-contrast: #18130a;
+  --color-bg: #F5F5F0;
+  --color-text: #1a1a1a;
+  --color-heading: #0B0B0B;
+  --color-muted: rgba(11, 11, 11, 0.58);
+  --color-orange: #FF6A00;
+  --color-orange-glow: rgba(255, 106, 0, 0.3);
+  --color-orange-fire: #FF4500;
+  --color-blue: #4A90D9;
+  --color-red: #CC2936;
+
   --surface-card: rgba(255, 255, 255, 0.72);
-  --surface-soft: rgba(29, 60, 120, 0.08);
-  --surface-strong: #0f1726;
-  --surface-strong-contrast: #f3f6fd;
-  --hero-surface: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.48));
-  --hero-heading: #eef4ff;
-  --hero-copy: rgba(238, 244, 255, 0.76);
-  --hero-floor: #0a0f1b;
-  --border-soft: rgba(29, 60, 120, 0.14);
-  --nav-surface: rgba(245, 241, 232, 0.72);
-  --nav-pill-active: rgba(29, 60, 120, 0.1);
-  --shape-primary: rgba(29, 60, 120, 0.18);
-  --shape-secondary: #e18f4a;
-  --font-heading: 'Righteous', cursive;
+  --surface-dark: #0B0B0B;
+  --surface-dark-text: #F5F5F0;
+  --surface-ink: rgba(11, 11, 11, 0.05);
+
+  --border-hard: #0B0B0B;
+  --border-soft: rgba(11, 11, 11, 0.1);
+  --border-orange: #FF6A00;
+
+  --nav-bg: rgba(245, 245, 240, 0.85);
+  --nav-border: rgba(11, 11, 11, 0.08);
+
+  --font-display: 'Playfair Display', 'Georgia', serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
 }
 
 :root[data-theme='dark'] {
-  --color-bg: #080d16;
-  --color-text: #edf2ff;
-  --color-heading: #f8fbff;
-  --color-muted: rgba(237, 242, 255, 0.72);
-  --color-primary: #8eb2ff;
-  --color-primary-contrast: #08111f;
-  --color-primary-muted: rgba(8, 17, 31, 0.72);
-  --color-accent: #f6b04d;
-  --color-accent-contrast: #18130a;
-  --surface-card: rgba(16, 24, 38, 0.84);
-  --surface-soft: rgba(142, 178, 255, 0.12);
-  --surface-strong: #111a29;
-  --surface-strong-contrast: #f8fbff;
-  --hero-surface: linear-gradient(180deg, rgba(14,20,34,0.84), rgba(10,14,24,0.72));
-  --hero-heading: #f8fbff;
-  --hero-copy: rgba(237, 242, 255, 0.74);
-  --hero-floor: #04070d;
-  --border-soft: rgba(142, 178, 255, 0.16);
-  --nav-surface: rgba(9, 14, 24, 0.72);
-  --nav-pill-active: rgba(142, 178, 255, 0.12);
-  --shape-primary: rgba(142, 178, 255, 0.18);
-  --shape-secondary: rgba(246, 176, 77, 0.88);
-  --font-heading: 'Righteous', cursive;
+  --color-bg: #0B0B0B;
+  --color-text: #ddd;
+  --color-heading: #F5F5F0;
+  --color-muted: rgba(245, 245, 240, 0.5);
+  --color-orange: #FF6A00;
+  --color-orange-glow: rgba(255, 106, 0, 0.35);
+  --color-orange-fire: #FF5500;
+  --color-blue: #6AABF0;
+  --color-red: #FF4444;
+
+  --surface-card: rgba(18, 18, 18, 0.92);
+  --surface-dark: #F5F5F0;
+  --surface-dark-text: #0B0B0B;
+  --surface-ink: rgba(245, 245, 240, 0.04);
+
+  --border-hard: rgba(245, 245, 240, 0.7);
+  --border-soft: rgba(245, 245, 240, 0.08);
+  --border-orange: #FF6A00;
+
+  --nav-bg: rgba(11, 11, 11, 0.9);
+  --nav-border: rgba(245, 245, 240, 0.06);
 }
+
+/* ─── RESETS ─── */
 
 html {
   scroll-behavior: smooth;
@@ -69,152 +64,217 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top left, rgba(246, 170, 61, 0.12), transparent 24%),
-    linear-gradient(180deg, rgba(29,60,120,0.04), transparent 40%),
-    var(--color-bg);
+  background: var(--color-bg);
   color: var(--color-text);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition:
-    background-color 260ms ease,
-    color 260ms ease;
+  transition: background-color 300ms ease, color 300ms ease;
+  overflow-x: hidden;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button,
-input,
-textarea {
-  font: inherit;
-}
-
-#root {
-  min-height: 100vh;
-}
+a { color: inherit; text-decoration: none; }
+button, input, textarea { font: inherit; }
+#root { min-height: 100vh; position: relative; }
 
 ::selection {
-  background: var(--color-accent);
+  background: var(--color-orange);
   color: white;
 }
 
+/* ─── UTILITIES ─── */
+
 @layer utilities {
-  .font-heading {
-    font-family: var(--font-heading);
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-body {
+    font-family: var(--font-body);
   }
 }
+
+/* ─── MANGA / ANIME COMPONENTS ─── */
 
 @layer components {
-  .section-badge {
-    @apply inline-flex items-center rounded-full px-3.5 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em];
-    background: var(--surface-soft);
-    color: var(--color-heading);
-  }
 
-  .section-badge-dark {
-    @apply inline-flex items-center rounded-full px-3.5 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em];
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--color-primary-contrast);
-  }
-
-  .editorial-outline-text {
-    font-family: var(--font-heading);
-    font-size: clamp(3.4rem, 9vw, 8.5rem);
-    line-height: 0.84;
-    letter-spacing: -0.06em;
-    color: transparent;
-    -webkit-text-stroke: 1.3px rgba(246, 170, 61, 0.72);
+  /* --- Huge watermark/background text --- */
+  .watermark-text {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(6rem, 20vw, 18rem);
+    line-height: 0.8;
+    letter-spacing: -0.04em;
     text-transform: uppercase;
-    opacity: 0.82;
-  }
-
-  .floating-tag {
-    @apply inline-flex items-center rounded-full px-4 py-2 text-sm font-medium shadow-[0_10px_24px_rgba(0,0,0,0.08)];
-    background: rgba(255, 255, 255, 0.12);
-    color: var(--hero-heading);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-  }
-
-  .about-tag {
-    @apply inline-flex items-center rounded-full px-4 py-2 text-sm font-medium;
-    background: var(--surface-soft);
     color: var(--color-heading);
+    opacity: 0.025;
+    user-select: none;
+    pointer-events: none;
   }
 
-  .side-outline-text {
-    font-family: var(--font-heading);
-    font-size: clamp(4rem, 7vw, 7rem);
+  /* --- Section title (manga chapter style) --- */
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(3rem, 8vw, 6.5rem);
     line-height: 0.88;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(246, 170, 61, 0.5);
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-  }
-
-  .stack-chip {
-    @apply inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold;
-    background: var(--surface-soft);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
     color: var(--color-heading);
-    border: 1px solid var(--border-soft);
   }
 
-  .experience-outline-text {
-    font-family: var(--font-heading);
-    font-size: clamp(4.4rem, 7.4vw, 7rem);
-    line-height: 0.82;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(246, 170, 61, 0.35);
-    text-align: right;
-  }
-
-  .timeline-pill {
-    @apply inline-flex items-center rounded-full px-3.5 py-2 text-sm;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--color-primary-contrast);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-  }
-
-  .project-chip {
-    @apply inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold;
-    background: var(--surface-soft);
-    color: var(--color-heading);
-    border: 1px solid var(--border-soft);
-  }
-
-  .project-button {
-    @apply inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold;
-    background: var(--surface-soft);
-    color: var(--color-heading);
-    border: 1px solid var(--border-soft);
-  }
-
-  .project-button-accent {
-    background: var(--color-accent);
-    color: var(--color-accent-contrast);
-    border-color: transparent;
-  }
-
-  .social-link-card {
-    @apply flex items-center gap-4 rounded-[2rem] border p-6 shadow-[0_18px_40px_rgba(0,0,0,0.08)];
-    border-color: var(--border-soft);
+  /* --- Manga panel border --- */
+  .manga-panel {
+    border: 3px solid var(--border-hard);
+    position: relative;
     background: var(--surface-card);
+    overflow: hidden;
   }
 
-  .social-icon-shell {
-    @apply flex h-14 w-14 items-center justify-center rounded-full;
-    background: var(--color-primary);
-    color: var(--color-primary-contrast);
+  .manga-panel::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    border: 1px solid var(--border-soft);
+    pointer-events: none;
+  }
+
+  /* --- Stamp / seal badge (like a shinobi seal) --- */
+  .seal-badge {
+    @apply inline-flex items-center px-3 py-1.5 text-[0.65rem] font-extrabold uppercase tracking-[0.2em];
+    border: 2px solid var(--color-orange);
+    color: var(--color-orange);
+    background: transparent;
+    position: relative;
+  }
+
+  .seal-badge::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border: 1px solid var(--color-orange);
+    opacity: 0.3;
+    transform: translate(2px, 2px);
+    pointer-events: none;
+  }
+
+  /* --- Ink tag (tech label) --- */
+  .ink-tag {
+    @apply inline-flex items-center px-3.5 py-2 text-xs font-bold uppercase tracking-[0.1em];
+    background: var(--surface-ink);
+    color: var(--color-heading);
+    border: 1.5px solid var(--border-hard);
+    position: relative;
+    transition: all 0.25s ease;
+  }
+
+  .ink-tag:hover {
+    border-color: var(--color-orange);
+    color: var(--color-orange);
+    box-shadow: 0 0 20px var(--color-orange-glow), inset 0 0 20px rgba(255, 106, 0, 0.05);
+  }
+
+  /* --- Speed lines (manga action effect) --- */
+  .speed-lines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 49.5%,
+      var(--border-soft) 49.5%,
+      var(--border-soft) 50.5%,
+      transparent 50.5%,
+      transparent 100%
+    );
+    background-size: 60px 100%;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  /* --- CTA Button (kunai style) --- */
+  .cta-button {
+    @apply inline-flex items-center gap-3 px-7 py-3.5 text-sm font-extrabold uppercase tracking-[0.16em];
+    background: var(--color-orange);
+    color: white;
+    border: none;
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
+    transition: all 0.3s ease;
+  }
+
+  .cta-button:hover {
+    background: var(--color-orange-fire);
+    box-shadow: 0 0 30px var(--color-orange-glow);
+    transform: translateY(-2px);
+  }
+
+  /* --- Poster card (for projects) --- */
+  .poster-card {
+    position: relative;
+    overflow: hidden;
+    border: 3px solid var(--border-hard);
+    background: var(--surface-card);
+    transition: all 0.35s ease;
+  }
+
+  .poster-card:hover {
+    border-color: var(--color-orange);
+    box-shadow: 
+      6px 6px 0 var(--color-orange),
+      0 0 30px var(--color-orange-glow);
+  }
+
+  /* --- Timeline dot (chakra point) --- */
+  .chakra-dot {
+    @apply h-5 w-5 rounded-full;
+    background: var(--color-orange);
+    box-shadow: 0 0 0 4px var(--color-orange-glow), 0 0 16px var(--color-orange-glow);
+    position: relative;
+  }
+
+  .chakra-dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid var(--color-orange);
+    opacity: 0.4;
+    animation: chakra-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes chakra-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.5); opacity: 0; }
+  }
+
+  /* --- Konoha skyline backdrop --- */
+  .konoha-backdrop {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    opacity: 0.04;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  :root[data-theme='dark'] .konoha-backdrop {
+    filter: invert(1);
+    opacity: 0.035;
   }
 }
 
-@media (max-width: 1023px) {
-  .editorial-outline-text,
-  .side-outline-text,
-  .experience-outline-text {
-    font-size: clamp(3rem, 13vw, 5rem);
+/* ─── RESPONSIVE ─── */
+
+@media (max-width: 768px) {
+  .watermark-text {
+    font-size: clamp(4rem, 22vw, 8rem);
+  }
+  .section-title {
+    font-size: clamp(2.4rem, 11vw, 4rem);
   }
 }
