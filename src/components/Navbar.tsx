@@ -2,13 +2,17 @@ import { motion } from 'framer-motion'
 import { Moon, Sun } from 'lucide-react'
 
 import type { Theme } from '../types'
+import { useI18n } from '../context/I18nContext'
+import { translations } from '../data/translations'
+import flagBr from '../assets/flag-br.png'
+import flagUs from '../assets/flag-us.png'
 
 const navItems = [
-  { id: 'about', label: 'About' },
-  { id: 'stack', label: 'Stack' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'about' },
+  { id: 'stack' },
+  { id: 'experience' },
+  { id: 'projects' },
+  { id: 'contact' },
 ]
 
 interface NavbarProps {
@@ -18,6 +22,9 @@ interface NavbarProps {
 }
 
 function Navbar({ activeSection, theme, onToggleTheme }: NavbarProps) {
+  const { language, setLanguage } = useI18n()
+  const t = translations[language].nav
+
   return (
     <motion.header
       animate={{ y: 0, opacity: 1 }}
@@ -49,14 +56,13 @@ function Navbar({ activeSection, theme, onToggleTheme }: NavbarProps) {
                 }`}
                 href={`#${item.id}`}
               >
-                {item.label}
+                {t[item.id as keyof typeof t]}
               </a>
             )
           })}
         </nav>
 
-        {/* Actions */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <button
             aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
             className="flex h-9 w-9 items-center justify-center border-2 border-[var(--border-hard)] text-[var(--color-heading)] transition-all hover:border-[var(--color-orange)] hover:bg-[var(--color-orange)] hover:text-white"
@@ -66,11 +72,24 @@ function Navbar({ activeSection, theme, onToggleTheme }: NavbarProps) {
             {theme === 'light' ? <Moon className="h-3.5 w-3.5" /> : <Sun className="h-3.5 w-3.5" />}
           </button>
 
+          <button
+            aria-label="Switch language"
+            className="flex h-9 w-9 items-center justify-center border-2 border-[var(--border-hard)] p-1.5 transition-all hover:border-[var(--color-orange)] hover:shadow-[0_0_12px_var(--color-orange-glow)]"
+            onClick={() => setLanguage(language === 'en' ? 'pt' : 'en')}
+            type="button"
+          >
+            <img 
+              alt={language === 'en' ? 'US Flag' : 'BR Flag'}
+              className="h-full w-full object-contain"
+              src={language === 'en' ? flagUs : flagBr} 
+            />
+          </button>
+
           <a
             className="hidden items-center gap-2 bg-[var(--color-orange)] px-5 py-2.5 text-[0.65rem] font-extrabold uppercase tracking-[0.16em] text-white transition-all duration-200 hover:bg-[var(--color-orange-fire)] hover:shadow-[0_0_20px_var(--color-orange-glow)] sm:inline-flex"
             href="#contact"
           >
-            Get in touch
+            {t.getInTouch}
           </a>
         </div>
       </div>

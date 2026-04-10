@@ -1,14 +1,16 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import About from './components/About'
 import Contact from './components/Contact'
 import Experience from './components/Experience'
 import GrainOverlay from './components/GrainOverlay'
 import Navbar from './components/Navbar'
+import ProjectDetail from './components/ProjectDetail'
 import Projects from './components/Projects'
 import TechStack from './components/TechStack'
 import { projects } from './data/projects'
-import type { Theme } from './types'
+import { I18nProvider } from './context/I18nContext'
+import type { Project, Theme } from './types'
 
 const memojiModules = import.meta.glob('./assets/memoji*.png', {
   eager: true,
@@ -17,7 +19,7 @@ const memojiModules = import.meta.glob('./assets/memoji*.png', {
 
 const memojiImages = Object.values(memojiModules)
 
-const sectionIds = ['hero', 'about', 'stack', 'experience', 'projects', 'contact']
+const sectionIds = ['about', 'stack', 'experience', 'projects', 'contact']
 
 function getInitialTheme(): Theme {
   if (typeof window === 'undefined') return 'dark'
@@ -26,18 +28,53 @@ function getInitialTheme(): Theme {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
-function App() {
+function AppContent() {
   const [theme, setTheme] = useState<Theme>(getInitialTheme)
   const [activeSection, setActiveSection] = useState('hero')
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const savedScrollY = useRef(0)
 
   const selectedMemoji = useMemo(() => {
     if (memojiImages.length === 0) return ''
     return memojiImages[Math.floor(Math.random() * memojiImages.length)]
   }, [])
 
-  const featuredProjects = useMemo(() => {
-    return [...projects].sort((a, b) => b.id - a.id).slice(0, 3)
+  const allProjects = useMemo(() => {
+    return [...projects].sort((a, b) => b.id - a.id)
   }, [])
+
+  const handleSelectProject = useCallback((project: Project) => {
+    savedScrollY.current = window.scrollY
+    setSelectedProject(project)
+    window.scrollTo(0, 0)
+    window.location.hash = `project-${project.slug}`
+  }, [])
+
+  const handleBackHome = useCallback(() => {
+    if (window.location.hash.startsWith('#project-')) {
+      window.history.back()
+    } else {
+      setSelectedProject(null)
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: savedScrollY.current, behavior: 'instant' })
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (selectedProject && !window.location.hash.startsWith('#project-')) {
+        setSelectedProject(null)
+        if (!window.location.hash || window.location.hash === '') {
+          requestAnimationFrame(() => {
+            window.scrollTo({ top: savedScrollY.current, behavior: 'instant' })
+          })
+        }
+      }
+    }
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [selectedProject])
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -46,6 +83,7 @@ function App() {
   }, [theme])
 
   useEffect(() => {
+    if (selectedProject) return
     const sections = sectionIds
       .map((id) => document.getElementById(id))
       .filter((s): s is HTMLElement => Boolean(s))
@@ -62,7 +100,21 @@ function App() {
 
     sections.forEach((s) => observer.observe(s))
     return () => observer.disconnect()
-  }, [])
+  }, [selectedProject])
+
+  if (selectedProject) {
+    return (
+      <div className="min-h-screen overflow-x-clip bg-[var(--color-bg)] text-[var(--color-text)] transition-colors duration-300">
+        <GrainOverlay />
+        <Navbar
+          activeSection=""
+          theme={theme}
+          onToggleTheme={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
+        />
+        <ProjectDetail project={selectedProject} onBackHome={handleBackHome} />
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen overflow-x-clip bg-[var(--color-bg)] text-[var(--color-text)] transition-colors duration-300">
@@ -75,11 +127,19 @@ function App() {
       <main className="relative">
         <About profileSrc={selectedMemoji} />
         <TechStack />
+        <Projects projects={allProjects} onSelectProject={handleSelectProject} />
         <Experience />
-        <Projects projects={featuredProjects} />
         <Contact />
       </main>
     </div>
+  )
+}
+
+function App() {
+  return (
+    <I18nProvider>
+      <AppContent />
+    </I18nProvider>
   )
 }
 

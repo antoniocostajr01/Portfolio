@@ -2,26 +2,13 @@ import { motion } from 'framer-motion'
 
 import konohaImg from '../assets/konoha-skyline.png'
 
-const experienceItems = [
-  {
-    period: '2025 — Present',
-    title: 'Apple Developer Academy',
-    subtitle: 'iOS Developer · Scrum Master',
-    description:
-      'Building iOS applications, collaborating in team projects, and delivering real products to the App Store. Focus on Swift, SwiftUI, UIKit, UX design, and agile methodologies.',
-    highlights: ['iOS Development', 'Team Projects', 'UX/UI & Prototyping', 'Published Apps'],
-  },
-  {
-    period: '2024 — 2025',
-    title: 'Personal Projects & Freelance',
-    subtitle: 'iOS Developer · Designer',
-    description:
-      'Independently building iOS applications, exploring frameworks, and developing a strong foundation in Swift and interface design.',
-    highlights: ['iOS Apps', 'UI/UX Design', 'Self-directed Learning'],
-  },
-]
+import { useI18n } from '../context/I18nContext'
+import { translations } from '../data/translations'
 
 function Experience() {
+  const { language } = useI18n()
+  const t = translations[language].experience
+
   return (
     <section
       id="experience"
@@ -49,10 +36,10 @@ function Experience() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span className="seal-badge">第三章 · Experience</span>
+          <span className="seal-badge">{t.badge}</span>
           <h2 className="section-title mt-5">
-            MY{' '}
-            <span className="text-[var(--color-orange)]">JOURNEY</span>
+            {t.title1}{' '}
+            <span className="text-[var(--color-orange)]">{t.title2}</span>
           </h2>
           <div className="mt-3 h-[2px] w-24 bg-[var(--color-orange)]" />
         </motion.div>
@@ -61,7 +48,7 @@ function Experience() {
         <div className="relative ml-3 border-l-[3px] border-[var(--color-orange)] pl-8 lg:ml-8 lg:pl-14"
           style={{ borderImage: 'linear-gradient(to bottom, var(--color-orange), transparent) 1' }}
         >
-          {experienceItems.map((item, index) => (
+          {t.items.map((item, index) => (
             <motion.div
               key={item.title}
               className="relative mb-16 last:mb-0"

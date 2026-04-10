@@ -17,7 +17,8 @@
   --surface-card: rgba(255, 255, 255, 0.72);
   --surface-dark: #0B0B0B;
   --surface-dark-text: #F5F5F0;
-  --surface-ink: rgba(11, 11, 11, 0.05);
+  --surface-ink: rgba(11, 11, 11, 0.06);
+  --color-bg-alt: #ECEAE4;
 
   --border-hard: #0B0B0B;
   --border-soft: rgba(11, 11, 11, 0.1);
@@ -41,10 +42,11 @@
   --color-blue: #6AABF0;
   --color-red: #FF4444;
 
-  --surface-card: rgba(18, 18, 18, 0.92);
+  --surface-card: rgba(22, 22, 22, 0.92);
   --surface-dark: #F5F5F0;
   --surface-dark-text: #0B0B0B;
-  --surface-ink: rgba(245, 245, 240, 0.04);
+  --surface-ink: rgba(255, 255, 255, 0.05);
+  --color-bg-alt: #141414;
 
   --border-hard: rgba(245, 245, 240, 0.7);
   --border-soft: rgba(245, 245, 240, 0.08);
@@ -167,7 +169,7 @@ button, input, textarea { font: inherit; }
     color: var(--color-heading);
     border: 1.5px solid var(--border-hard);
     position: relative;
-    transition: all 0.25s ease;
+    transition: all 150ms ease-out;
   }
 
   .ink-tag:hover {
@@ -202,7 +204,7 @@ button, input, textarea { font: inherit; }
     border: none;
     position: relative;
     clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
-    transition: all 0.3s ease;
+    transition: all 150ms ease-out;
   }
 
   .cta-button:hover {
@@ -217,7 +219,7 @@ button, input, textarea { font: inherit; }
     overflow: hidden;
     border: 3px solid var(--border-hard);
     background: var(--surface-card);
-    transition: all 0.35s ease;
+    transition: all 150ms ease-out;
   }
 
   .poster-card:hover {

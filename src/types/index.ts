@@ -30,6 +30,7 @@ export interface Project {
   slug: string
   title: string
   period: string
+  origin?: string
   screenshotOrientation?: 'portrait' | 'landscape'
   iconSrc?: string
   iconLabel?: string

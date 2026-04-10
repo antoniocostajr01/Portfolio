@@ -3,6 +3,8 @@ import { useState } from 'react'
 import antonioMemoji from '../assets/antonio-memoji.png'
 import antonioPhoto from '../assets/antonio-photo.jpg'
 import inkBrush from '../assets/ink-brush.png'
+import { useI18n } from '../context/I18nContext'
+import { translations } from '../data/translations'
 
 interface AboutProps {
   profileSrc: string
@@ -13,8 +15,6 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
 }
 
-const tags = ['iOS Developer', 'Porto Alegre / RS / Brazil 🇧🇷']
-
 const curtainTransition = {
   duration: 0.8,
   times: [0, 0.4, 0.6, 1],
@@ -22,20 +22,23 @@ const curtainTransition = {
 }
 
 function About({ profileSrc }: AboutProps) {
-  const [phase, setPhase] = useState<'idle' | 'entering' | 'revealed'>('idle')
+  const { language } = useI18n()
+  const t = translations[language].about
 
-  const shouldReveal = phase === 'revealed' || phase === 'entering'
+  const [isHovered, setIsHovered] = useState(false)
+  const [trigger, setTrigger] = useState(0)
 
   function handleEnter() {
-    if (phase === 'idle') {
-      setPhase('entering')
-      setTimeout(() => setPhase('revealed'), 800)
+    if (!isHovered) {
+      setIsHovered(true)
+      setTrigger((t) => t + 1)
     }
   }
 
   function handleLeave() {
-    if (phase === 'revealed' || phase === 'entering') {
-      setPhase('idle')
+    if (isHovered) {
+      setIsHovered(false)
+      setTrigger((t) => t + 1)
     }
   }
 
@@ -63,7 +66,7 @@ function About({ profileSrc }: AboutProps) {
           variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
         >
           <motion.div variants={fadeUp}>
-            <span className="seal-badge">第一章 · ABOUT ME</span>
+            <span className="seal-badge">{t.badge}</span>
           </motion.div>
           <motion.div className="h-[2px] flex-1 bg-[var(--border-soft)]" variants={fadeUp} />
         </motion.div>
@@ -77,29 +80,31 @@ function About({ profileSrc }: AboutProps) {
           >
 
           <motion.h2 className="section-title" variants={fadeUp}>
-            HELLO,
+            {t.hello}
             <br />
-            I'M <span className="normal-case text-[var(--color-orange)]">antonio</span>
+            {t.im} <span className="normal-case text-[var(--color-orange)]">antonio</span>
           </motion.h2>
 
 
           <motion.div className="mt-8" variants={fadeUp}>
             <div className="manga-panel p-5">
               <p className="text-sm leading-7 text-[var(--color-text)] sm:text-base">
-                I am a student of Systems Analysis and Development, as well as Business Administration, at UFRGS.
-                My true passion lies in mobile engineering, bringing 2 years of experience with a strong focus on native iOS development.
-                This journey was greatly accelerated by my time at the{' '}
-                <strong className="text-[var(--color-orange)]">Apple Developer Academy</strong>
-                , where I honed my skills in Swift, UIKit, and SwiftUI to build scalable applications that deliver a premium user experience.
+                {t.text1}
+                <br />
+                {t.text2}
+                <br />
+                {t.text3}{' '}
+                <strong className="text-[var(--color-orange)]">{t.academy}</strong>
+                {t.text4}
               </p>
             </div>
           </motion.div>
 
             <motion.div className="mt-8 flex flex-wrap gap-3" variants={fadeUp}>
-              {tags.map((tag) => (
-                <motion.span key={tag} className="ink-tag" whileHover={{ scale: 1.06 }}>
+              {t.tags.map((tag) => (
+                <span key={tag} className="ink-tag transition-all duration-150 ease-out hover:scale-[1.04]">
                   {tag}
-                </motion.span>
+                </span>
               ))}
             </motion.div>
 
@@ -107,11 +112,7 @@ function About({ profileSrc }: AboutProps) {
               className="mt-10 grid grid-cols-3 gap-5 border-t-2 border-[var(--border-hard)] pt-6"
               variants={fadeUp}
             >
-              {[
-                { label: 'Experience', value: '2 Years' },
-                { label: 'Expertise', value: 'Mobile Apps' },
-                { label: 'Focus', value: 'Native iOS' },
-              ].map((fact) => (
+              {[t.fact1, t.fact2, t.fact3].map((fact) => (
                 <div key={fact.label}>
                   <p className="text-[0.6rem] font-extrabold uppercase tracking-[0.2em] text-[var(--color-orange)]">
                     {fact.label}
@@ -137,7 +138,7 @@ function About({ profileSrc }: AboutProps) {
               style={{ borderWidth: '3px', borderStyle: 'solid' }}
             />
 
-            {phase === 'idle' && (
+            {(!isHovered && trigger === 0) && (
               <motion.div
                 className="pointer-events-none absolute inset-0 w-[88%] bg-[var(--color-orange)]"
                 animate={{ opacity: [0.04, 0.12, 0.04] }}
@@ -156,11 +157,15 @@ function About({ profileSrc }: AboutProps) {
                 <motion.div
                   className="absolute inset-0 z-10 flex items-center justify-center bg-[var(--color-bg)] p-6"
                   animate={
-                    shouldReveal
+                    isHovered
                       ? { opacity: 0, scale: 1.1, filter: 'blur(8px)' }
                       : { opacity: 1, scale: 1, filter: 'blur(0px)' }
                   }
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: isHovered ? 0 : 0.4,
+                    ease: [0.22, 1, 0.36, 1] 
+                  }}
                 >
                   <img
                     alt="Antonio Costa Jr — memoji"
@@ -169,10 +174,9 @@ function About({ profileSrc }: AboutProps) {
                   />
                 </motion.div>
 
-                {/* LAYER 2 — REAL PHOTO */}
                 <motion.div
                   className="absolute inset-0 z-20"
-                  animate={{ opacity: shouldReveal ? 1 : 0 }}
+                  animate={{ opacity: isHovered ? 1 : 0 }}
                   transition={{ duration: 0.01, delay: 0.38 }}
                 >
                   <motion.img
@@ -180,7 +184,7 @@ function About({ profileSrc }: AboutProps) {
                     className="h-full w-full object-cover"
                     src={antonioPhoto}
                     animate={
-                      shouldReveal
+                      isHovered
                         ? { filter: 'saturate(1) brightness(1)', scale: 1 }
                         : { filter: 'saturate(0) brightness(1.3)', scale: 1.06 }
                     }
@@ -188,10 +192,11 @@ function About({ profileSrc }: AboutProps) {
                   />
                 </motion.div>
 
-                {/* LAYER 3 — CURTAIN: esquerda → direita (apenas ao entrar) */}
+                {/* LAYER 3 — CURTAIN: Wipe effect both ways */}
                 <motion.div
+                  key={`curtain-${trigger}`}
                   className="absolute inset-0 z-30 origin-left bg-[var(--color-orange)]"
-                  animate={phase === 'entering' ? { scaleX: [0, 1, 1, 0] } : { scaleX: 0 }}
+                  animate={trigger > 0 ? { scaleX: [0, 1, 1, 0] } : { scaleX: 0 }}
                   transition={curtainTransition}
                 />
               </div>
