@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Mail } from 'lucide-react'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 
-
 import konohaImg from '../assets/konoha-skyline.png'
 
 const socialLinks = [
@@ -27,14 +26,16 @@ function Contact() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden px-6 py-20 sm:px-8 lg:px-12 lg:py-32"
+      className="relative min-h-[60vh] flex flex-col justify-end overflow-hidden px-6 py-20 sm:px-8 lg:px-12 lg:py-32"
     >
-      {/* Konoha skyline */}
-      <div className="konoha-backdrop">
-        <img alt="" className="h-auto w-full object-contain" src={konohaImg} />
+      {/* Konoha skyline com OFFSET */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 overflow-hidden">
+        <img
+          alt=""
+          src={konohaImg}
+          className="w-full object-cover opacity-3 translate-y-[40%]"
+        />
       </div>
-
-
 
       {/* Orange top line */}
       <div className="absolute inset-x-0 top-0 h-[3px] bg-[var(--color-orange)] opacity-60" />

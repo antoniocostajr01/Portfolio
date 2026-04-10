@@ -83,9 +83,9 @@ function TechStack() {
               whileHover={{ y: -8 }}
             >
               {/* Kanji number */}
-              <span className="absolute -right-1 -top-1 font-display text-6xl font-black text-[var(--color-orange)] opacity-10">
+              {/* <span className="absolute -right-1 -top-1 font-display text-6xl font-black text-[var(--color-orange)] opacity-10">
                 {group.kanji}
-              </span>
+              </span> */}
 
               {/* Number + Title */}
               <p className="text-[0.6rem] font-extrabold uppercase tracking-[0.25em] text-[var(--color-orange)]">

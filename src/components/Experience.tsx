@@ -27,10 +27,10 @@ function Experience() {
       id="experience"
       className="relative overflow-hidden px-6 py-20 sm:px-8 lg:px-12 lg:py-32"
     >
-      {/* Konoha skyline at the bottom */}
+      {/* Konoha skyline at the bottom
       <div className="konoha-backdrop">
         <img alt="" className="h-auto w-full object-contain" src={konohaImg} />
-      </div>
+      </div> */}
 
       {/* Orange top accent */}
       <div className="absolute inset-x-0 top-0 h-[3px] bg-[var(--color-orange)] opacity-50" />
